@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>cool game</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+    <script src="engine.js"></script>
+    <script src="game.js"></script>
+  </head>
+  <body>
+    <section class="container">
+      <img id="image" class="col-xs-6" src="#" alt="image" />
+
+      <div class="col-xs-6">
+        <h1>Here you are!</h1>
+        <div id="text"></div>
+        <h3>From here you can travel to:</h2>
+        <ul id="destinations"></ul>
+      </div>
+    </section>
+  </body>
+  <script>
+    Game = {};
+
+    // player
+    Game.player = {
+      name: "Fenn",
+      age: "18",
+      location: "worcester"
+    };
+
+    Game.startingPlace = "worcester";
+
+    // places
+    Game.places = {
+      "worcester": {
+        "name": "Worcester",
+        "image": "images/worcester.jpg",
+        "text": "this b the woo",
+        "destinations": ["concord", "andover"]
+      },
+      "concord": {
+        "name": "Concord",
+        "image": "images/concord.jpg",
+        "text": "this is da conk",
+        "destinations": ["worcester"]
+      },
+      "andover": {
+        "name": "Andover",
+        "image": "images/andover.jpg",
+        "text": "this is da AND",
+        "destinations": ["worcester"]
+      },
+    };
+
+    Engine.start(Game);
+  </script>
+</html>
