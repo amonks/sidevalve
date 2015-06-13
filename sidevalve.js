@@ -10,8 +10,10 @@ var Sidevalve = function() {
   API.start = function(game) {
     setup();
     // try to load the game
-    if (! load(game)) {
-      // if you can't, start a new one
+    var loadedGame = load();
+    if (loadedGame) {
+      API.game = loadedGame;
+    } else {
       API.newGame();
     }
 
@@ -23,7 +25,7 @@ var Sidevalve = function() {
     // this is kind of sneaky. If we set `API.game = Game`,
     // our new-game-state is tied to the playing game and starts changing.
     // we need to keep a clean new-game-state, so we'll clone it.
-    // see http://stackoverflow.com/questions/122102/what-is-the-most-efficient-way-to-clone-an-object
+    // http://stackoverflow.com/questions/122102/what-is-the-most-efficient-way-to-clone-an-object
     API.game = JSON.parse(JSON.stringify(Game));
 
     API.setName();
@@ -125,8 +127,8 @@ var Sidevalve = function() {
     // add that game to the sidevalve so we can find it later
     if (loadedGameState) {
       console.log("loading game");
-      API.game = JSON.parse(loadedGameState);
-      return true;
+      // it's saved as a string so we gotta objectify it
+      return JSON.parse(loadedGameState);
     } else {
       return false;
     }
