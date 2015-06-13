@@ -31,24 +31,24 @@ var Sidevalve = function() {
 
   // function to draw the game window (images, text, ...)
   API.render = function() {
-    // create a newPlace variable for convenience
-    var id = API.game.player.location;
-    var newPlace = API.game.places[id];
+    // create a place variable for convenience
+    var placeID = API.game.player.location;
+    var place = API.game.places[placeID];
 
     // load the new place name
-    $(".current-place-name").text(newPlace.name);
+    $(".current-place-name").text(place.name);
 
     // load the new place image
-    $("#image").attr("src", newPlace.image);
+    $("#image").attr("src", place.image);
 
     // load the new place text
-    $("#text").text(newPlace.text);
+    $("#text").text(place.text);
 
     // load the player's name
     $(".current-player-name").text(API.game.player.name);
 
     // load the new place destinations
-    setUpDestinations(newPlace.destinations);
+    setUpDestinations(place.destinations);
   };
 
   // function to enter a place
@@ -67,15 +67,20 @@ var Sidevalve = function() {
   API.setName = function() {
 
     // http://bootboxjs.com/
+    // here we're creating a modal prompt to get the character's name
     bootbox.prompt({
       title: "What's your name?",
       value: API.game.player.name,
       callback: function(result) {
+        // everything in here happens after the player submits the prompt
         if (result === null) {
+          // either ignore it if they hit 'cancel'
           console.log("Prompt dismissed");
         } else {
+          // or update the name
           API.game.player.name = result;
         }
+        // and render the result
         API.render();
       }
     });
