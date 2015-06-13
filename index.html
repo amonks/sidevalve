@@ -8,6 +8,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
 
     <script src="engine.js"></script>
+    <script src="game.js"></script>
   </head>
   <body>
       <nav class="navbar navbar-inverse">
@@ -36,55 +37,6 @@
     </section>
   </body>
   <script>
-    Game = {};
-
-    // player
-    Game.player = {
-      "name": "Fenn",
-      "age": "18",
-      "location": "worcester"
-    };
-
-    // places
-    Game.places = {
-      "worcester": {
-        "name": "Worcester",
-        "image": "images/worcester.jpg",
-        "text": "this b the woo",
-        "destinations": ["concord", "andover", "clark"]
-      },
-      "monks": {
-        "name": "Monks' House",
-        "image": "images/monks.jpg",
-        "text": "ey bro wanna puff piff",
-        "destinations": ["concord"]
-      },
-      "clark": {
-        "name": "Clark University",
-        "image": "images/clark.jpg",
-        "text": "time 2 learn bro",
-        "destinations": ["worcester"]
-      },
-      "concord": {
-        "name": "Concord",
-        "image": "images/concord.jpg",
-        "text": "this is da conk",
-        "destinations": ["worcester", "andover", "monks"]
-      },
-      "andover": {
-        "name": "Andover",
-        "image": "images/andover.jpg",
-        "text": "this is da AND",
-        "destinations": ["worcester", "fenn"]
-      },
-      "fenn": {
-        "name": "Fenn's House",
-        "image": "images/fenn.jpg",
-        "text": "eyyyyy",
-        "destinations": ["andover"]
-      },
-    };
-
     engine = new Engine();
     engine.start(Game);
   </script>
