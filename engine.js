@@ -15,6 +15,9 @@ Engine.enter = function(id) {
   Engine.game.player.location = id;
   var newPlace = Engine.game.places[id];
 
+  // load the new place name
+  $(".current-place-name").text(newPlace.name);
+
   // load the new place image
   $("#image").attr("src", newPlace.image);
 
