@@ -1,7 +1,11 @@
 // sidevalve.js
 
+// Here we're using Doug Crockford's constructor pattern
+// http://javascript.crockford.com/private.html
 var Sidevalve = function() {
 
+  // the Sidevalve() constructor returns this API object,
+  // so its members will be public.
   var API = {};
 
   // function to start the game
@@ -88,6 +92,8 @@ var Sidevalve = function() {
     });
   };
 
+  // these functions aren't members of the API object, so they're private.
+
   // function to set up the game
   // this should be called before start
   // put anything in here that has to happen first one time
@@ -142,5 +148,6 @@ var Sidevalve = function() {
     localStorage.setItem("textGameState", gameState);
   };
 
+  // the constructor needs to return the public API object
   return API;
 };
