@@ -47,6 +47,7 @@ Game = {
       "text": "ey bro wanna puff piff?",
       // or just one..
       "destinations": ["concord"],
+      // when the player arrives here, 'weed' will be added to their inventory
       "get": ["weed"]
     },
 
@@ -60,7 +61,7 @@ Game = {
     "clark": {
       "name": "Clark University",
       // Or you can put images right in the repository
-      "image": "images/clark",
+      "image": "images/clark.jpg",
       "text": "time 2 learn bro",
       "destinations": ["worcester"]
     },
