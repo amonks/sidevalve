@@ -18,16 +18,6 @@ var Engine = function() {
     API.render();
   };
 
-  // function to set up the game
-  // this should be called before start
-  // put anything in here that has to happen first one time
-  setup = function() {
-    // activate new-game button
-    $("#new-game").click(function() {
-      API.newGame();
-    });
-  };
-
   // function to start a new game
   API.newGame = function(game) {
     // this is kind of sneaky. If we set `API.game = Game`,
@@ -37,38 +27,6 @@ var Engine = function() {
     API.game = JSON.parse(JSON.stringify(Game));
 
     API.setName();
-  };
-
-  // function to enter a place
-  API.enter = function(id) {
-    console.log("entering " + id);
-
-    // set the player location to the new place's id
-    API.game.player.location = id;
-
-    API.render();
-
-    save();
-  };
-
-  // function to set up the destinations list for a place
-  // argument: an array of new destination ids: ["concord", "worcester"]
-  setUpDestinations = function(destinations) {
-    // clear existing destinations from the list
-    $("#destinations").empty();
-
-    // add new destinations to the list
-    for ( var d in destinations ) {
-      var destinationID = destinations[d];
-      var destinationPlace = API.game.places[destinationID];
-      $("#destinations").append("<li><a class='destination' id ='" + destinationID + "' href='#'>" + destinationPlace.name);
-    }
-
-    // activate links
-    $(".destination").click(function() {
-      // `this` is the link itself: <a id='worcester' href='#'>
-      API.enter(this.id);
-    });
   };
 
   // function to draw the game window (images, text, ...)
@@ -93,6 +51,66 @@ var Engine = function() {
     setUpDestinations(newPlace.destinations);
   };
 
+  // function to enter a place
+  API.enter = function(id) {
+    console.log("entering " + id);
+
+    // set the player location to the new place's id
+    API.game.player.location = id;
+
+    API.render();
+
+    save();
+  };
+
+  // function to set the player's name
+  API.setName = function() {
+
+    // http://bootboxjs.com/
+    bootbox.prompt({
+      title: "What's your name?",
+      value: API.game.player.name,
+      callback: function(result) {
+        if (result === null) {
+          console.log("Prompt dismissed");
+        } else {
+          API.game.player.name = result;
+        }
+        API.render();
+      }
+    });
+  };
+
+  // function to set up the game
+  // this should be called before start
+  // put anything in here that has to happen first one time
+  setup = function() {
+    // activate new-game button
+    $("#new-game").click(function() {
+      API.newGame();
+    });
+  };
+
+  // function to set up the destinations list for a place
+  // argument: an array of new destination ids: ["concord", "worcester"]
+  setUpDestinations = function(destinations) {
+    // clear existing destinations from the list
+    $("#destinations").empty();
+
+    // add new destinations to the list
+    for ( var d in destinations ) {
+      var destinationID = destinations[d];
+      var destinationPlace = API.game.places[destinationID];
+      $("#destinations").append("<li><a class='destination' id ='" + destinationID + "' href='#'>" + destinationPlace.name);
+    }
+
+    // activate links
+    $(".destination").click(function() {
+      // `this` is the link itself: <a id='worcester' href='#'>
+      API.enter(this.id);
+    });
+  };
+
   // function to load a saved game
   // returns false if there's no saved game
   load = function() {
@@ -115,24 +133,6 @@ var Engine = function() {
     // gotta convert it to a string first
     var gameState = JSON.stringify(API.game);
     localStorage.setItem("textGameState", gameState);
-  };
-
-  // function to set the player's name
-  API.setName = function() {
-
-    // http://bootboxjs.com/
-    bootbox.prompt({
-      title: "What's your name?",
-      value: API.game.player.name,
-      callback: function(result) {
-        if (result === null) {
-          console.log("Prompt dismissed");
-        } else {
-          API.game.player.name = result;
-        }
-        API.render();
-      }
-    });
   };
 
   return API;
