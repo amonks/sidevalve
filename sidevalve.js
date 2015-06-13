@@ -54,7 +54,10 @@ var Sidevalve = function() {
     $(".current-player-name").text(API.game.player.name);
 
     // load the new place destinations
-    setUpDestinations(place.destinations);
+    renderDestinations(place.destinations);
+
+    // load the player's inventory
+    renderInventory(API.game.player.inventory);
   };
 
   // function to enter a place
@@ -63,6 +66,10 @@ var Sidevalve = function() {
 
     // set the player location to the new place's id
     API.game.player.location = id;
+
+    // get any new objects here
+    debugger;
+    getObjectsHere(id);
 
     API.render();
 
@@ -86,7 +93,8 @@ var Sidevalve = function() {
           // or update the name
           API.game.player.name = result;
         }
-        // and render the result
+        // save and render the result
+        save();
         API.render();
       }
     });
@@ -104,9 +112,25 @@ var Sidevalve = function() {
     });
   };
 
+  // function to pick up any objects in a location
+  // and add them to the player's inventory
+  getObjectsHere = function(placeID) {
+    var place = API.game.places[placeID];
+    debugger;
+    if (place.get) {
+      debugger;
+      // get everything in the place
+      while (place.get.length > 0) {
+        var newObject = place.get.pop();
+        API.game.player.inventory.push(newObject);
+      }
+    }
+  };
+
+
   // function to set up the destinations list for a place
   // argument: an array of new destination ids: ["concord", "worcester"]
-  setUpDestinations = function(destinations) {
+  renderDestinations = function(destinations) {
     // clear existing destinations from the list
     $("#destinations").empty();
 
@@ -122,6 +146,18 @@ var Sidevalve = function() {
       // `this` is the link itself: <a id='worcester' href='#'>
       API.enter(this.id);
     });
+  };
+
+  renderInventory = function(inventory) {
+    // clear existing inventory from the list
+    $("#inventory").empty();
+
+    // add new inventory to the list
+    for ( var i in inventory ) {
+      var itemID = inventory[i];
+      var item = API.game.objects[itemID];
+      $("#inventory").append("<li><h4>" + item.name + "</h4><img class='item img-responsive' id ='" + itemID + "' src='" + item.image + "'><p>" + item.text);
+    }
   };
 
   // function to load a saved game
