@@ -1,6 +1,6 @@
-// engine.js
+// sidevalve.js
 
-var Engine = function() {
+var Sidevalve = function() {
 
   var API = {};
 
@@ -86,7 +86,7 @@ var Engine = function() {
   // put anything in here that has to happen first one time
   setup = function() {
     // activate new-game button
-    $("#new-game").click(function() {
+    $(".new-game").click(function() {
       API.newGame();
     });
   };
@@ -117,7 +117,7 @@ var Engine = function() {
     // try to load a saved game from localStorage
     var loadedGameState = localStorage.getItem("textGameState");
 
-    // add that game to the engine so we can find it later
+    // add that game to the sidevalve so we can find it later
     if (loadedGameState) {
       console.log("loading game");
       API.game = JSON.parse(loadedGameState);
