@@ -63,6 +63,7 @@ Game = {
       // Or you can put images right in the repository
       "image": "images/clark.jpg",
       "text": "time 2 learn bro",
+      "get": "bong",
       "destinations": ["worcester"]
     },
 
