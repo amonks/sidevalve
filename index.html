@@ -4,17 +4,33 @@
     <title>cool game</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
 
     <script src="engine.js"></script>
   </head>
   <body>
+      <nav class="navbar navbar-inverse">
+      <div class="container">
+        <div class="navbar-header">
+          <span class="navbar-brand">Cool Text Game</span>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a id="new-game" href="#">New Game</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
     <section class="container">
       <img id="image" class="col-xs-6" src="#" alt="image" />
 
       <div class="col-xs-6">
-        <h1>Here you are in <span class="current-place-name">some place</span>!</h1>
+        <h1>Hi <span class="current-player-name"></span>!</h1>
+        <h2>Here you are in <span class="current-place-name">some place</span></h2>
         <div id="text"></div>
-        <h3>From here you can travel to:</h2>
+        <h3>From here you can travel to:</h3>
         <ul id="destinations"></ul>
       </div>
     </section>
@@ -24,12 +40,10 @@
 
     // player
     Game.player = {
-      // name: "Fenn",
-      // age: "18",
-      // location: "worcester"
+      "name": "Fenn",
+      "age": "18",
+      "location": "worcester"
     };
-
-    Game.startingPlace = "worcester";
 
     // places
     Game.places = {
