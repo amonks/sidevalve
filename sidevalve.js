@@ -85,6 +85,10 @@ var Sidevalve = function() {
       API.newGame(game);
     }
 
+    // preload images
+    preloadImages();
+
+
     API.render();
   };
 
@@ -343,6 +347,27 @@ var Sidevalve = function() {
     return true;
   };
 
+  // function to preload all the images
+  var preloadImages = function() {
+    preloadObjectImages(API.game.places);
+    preloadObjectImages(API.game.objects);
+  }
+
+  // function to preload all the images for an object
+  // argument: something like API.game.places
+  var preloadObjectImages = function(o) {
+    for (i in o) {
+      var url = o[i].image;
+      preloadImage(url);
+    }
+  }
+
+  // function to preload an individual image
+  var preloadImage = function(url) {
+    console.log("preloading " + url);
+    var image = new Image()
+    image.src = url;
+  }
 
 
   // the constructor needs to return the public API object
