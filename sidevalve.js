@@ -33,6 +33,10 @@ var Sidevalve = function() {
   // They couldn't, however, call `sidevalve.renderDestinations()`
   // because it *isn't* a child of API, as you'll see.
   //
+  // Go try it if you like: open the demo game, and type `sidevalve`
+  // into your javascript console. See which functions show up?
+  // The API.ones!
+  //
   // `renderDestinations()` is used internally by `render()`, so
   // I can keep it private and only expose the `render()` function.
   //
