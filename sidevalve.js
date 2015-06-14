@@ -190,6 +190,9 @@ var Sidevalve = function() {
     $(".new-game").click(function() {
       API.newGame();
     });
+    $(".change-name").click(function() {
+      API.setNameFromPrompt();
+    });
   };
 
   // function to enter a place
