@@ -102,6 +102,7 @@ var Sidevalve = function() {
 
   // function to draw the game window (images, text, ...)
   API.render = function() {
+
     // create a place variable for convenience
     var placeID = API.game.player.location;
     var place = API.game.places[placeID];
@@ -136,7 +137,6 @@ var Sidevalve = function() {
         // everything in here happens after the player submits the prompt
         if (result === null) {
           // either ignore it if they hit 'cancel'
-          console.log("Prompt dismissed");
         } else {
           // or update the name
           API.setName(result);
@@ -161,7 +161,7 @@ var Sidevalve = function() {
 
     // add that game to the sidevalve so we can find it later
     if (loadedGameState) {
-      console.log("loading game");
+      alert("loaded game", "success");
       // it's saved as a string so we gotta objectify it
       return JSON.parse(loadedGameState);
     } else {
@@ -171,7 +171,6 @@ var Sidevalve = function() {
 
   // function to save the game state into localStorage
   API.save = function() {
-    console.log("saving!");
     // gotta convert it to a string first
     var gameState = JSON.stringify(API.game);
     localStorage.setItem("textGameState", gameState);
@@ -188,12 +187,26 @@ var Sidevalve = function() {
   var setup = function() {
     // activate new-game button
     $(".new-game").click(function() {
+      clearAlerts();
       API.newGame();
     });
     // activate change-name button
     $(".change-name").click(function() {
+      clearAlerts();
       API.setNameFromPrompt();
     });
+  };
+
+  // function to display an alert
+  alert = function(text, type) {
+    var alert = renderMarkdown(text);
+    console.log("alert: " + alert);
+    $("#alerts").append("<div class='alert alert-" + type + "'>" + alert );
+  };
+
+  // function to clear the alerts
+  clearAlerts = function() {
+    $("#alerts").empty();
   };
 
   // function to enter a place
@@ -221,6 +234,9 @@ var Sidevalve = function() {
       while (place.get.length > 0) {
         var newObject = place.get.pop();
         API.game.player.inventory.push(newObject);
+        if (API.game.objects[newObject].acquisition) {
+          alert(API.game.objects[newObject].acquisition, "success");
+        }
       }
     }
   };
@@ -229,8 +245,16 @@ var Sidevalve = function() {
   // argument: a markdown-formatted string
   // called by `render()`
   var renderText = function(markdown) {
-    var placeText = marked(markdown);
+    var placeText = renderMarkdown(markdown);
     $("#text").html(placeText);
+  };
+
+  // function to convert text from markdown format.
+  // argument: a markdown-formatted string
+  // returns: html
+  var renderMarkdown = function(markdown) {
+    // simple now, but maybe different later?
+    return marked(markdown);
   };
 
   // function to set up the destinations list for a place
@@ -255,6 +279,7 @@ var Sidevalve = function() {
 
     // activate links
     $(".destination").click(function() {
+      clearAlerts();
       // `this` is the link itself: <a id='worcester' href='#'>
       enter(this.id);
     });

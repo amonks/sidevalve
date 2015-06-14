@@ -7,7 +7,7 @@ Game = {
     // this is the starting location
     "location": "worcester",
     // this is the player's starting inventory
-    "inventory": ["hat"]
+    "inventory": []
   },
 
   // this is a list of inventory-able objects in the game.
@@ -15,16 +15,20 @@ Game = {
     "hat": {
       "name": "cool hat",
       "image": "http://i.imgur.com/L75ItJ4.jpg",
+      // this "acquisition" text will show up when you find the object
+      "acquisition": "You remember that you're wearing your *cool hat*.",
       "text": "wow this must be the coolest hat ever."
     },
     "bong": {
       "name": "sweet bong",
       "image": "http://i.imgur.com/9duj9DV.jpg",
+      "acquisition": "You finally get your bong back from your landlord",
       "text": "This looks like a pretty sweet bong."
     },
     "weed": {
       "name": "fresh nugs",
       "image": "http://i.imgur.com/QXXXSlH.jpg",
+      "acquisition": "You find some grass",
       "text": "these are some real steezy nugs."
     }
   },
@@ -72,6 +76,7 @@ Game = {
       "name": "Andover",
       "image": "http://i.imgur.com/CgctDuE.jpg",
       "text": "this is da AND",
+      "get": ["hat"],
       "destinations": ["worcester", "fenn"]
     },
     "fenn": {
