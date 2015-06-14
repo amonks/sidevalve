@@ -82,7 +82,7 @@ var Sidevalve = function() {
     if (loadedGame) {
       API.game = loadedGame;
     } else {
-      API.newGame();
+      API.newGame(game);
     }
 
     API.render();
@@ -91,11 +91,14 @@ var Sidevalve = function() {
   // function to (re)start a new game
   // see big comment in `API.start()` ^^^
   API.newGame = function(game) {
+    alert("Starting a new game.", "success");
     // this is kind of sneaky. If we set `API.game = Game`,
     // our new-game-state is tied to the playing game and starts changing.
     // we need to keep a clean new-game-state, so we'll clone it.
     // http://stackoverflow.com/questions/122102/what-is-the-most-efficient-way-to-clone-an-object
-    API.game = JSON.parse(JSON.stringify(Game));
+    API.game = JSON.parse(JSON.stringify(game));
+
+    alert(API.game.intro, "info");
 
     API.setNameFromPrompt();
   };
@@ -147,6 +150,7 @@ var Sidevalve = function() {
 
   // function to set the player's name to a given string
   API.setName = function(name) {
+    alert("Name set to: `" + name + "`", "success");
     API.game.player.name = name;
     // save and render the result
     API.save();
@@ -188,7 +192,7 @@ var Sidevalve = function() {
     // activate new-game button
     $(".new-game").click(function() {
       clearAlerts();
-      API.newGame();
+      API.newGame(Game);
     });
     // activate change-name button
     $(".change-name").click(function() {

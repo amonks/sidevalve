@@ -1,9 +1,12 @@
 // game.js
 
 Game = {
+  // this text shows up at the beginning of the game
+  "intro": "Sup <span class='current-player-name'></span>! You should try to find some grass and a bong and then go to Fenn's house.",
+
   "player": {
     // this is the default name, it can be changed
-    "name": "Fenn",
+    "name": "Lame",
     // this is the starting location
     "location": "worcester",
     // this is the player's starting inventory
@@ -28,7 +31,7 @@ Game = {
     "weed": {
       "name": "fresh nugs",
       "image": "http://i.imgur.com/QXXXSlH.jpg",
-      "acquisition": "You find some grass",
+      "acquisition": "You score some grass",
       "text": "these are some real steezy nugs."
     }
   },
