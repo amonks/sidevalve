@@ -36,20 +36,36 @@
       <!-- any img tag with the id `image` will have its `src` set by the game -->
       <img id="image" class="col-xs-6" src="#" alt="image" />
 
-      <div class="col-xs-6 well">
-        <!-- these <span> tags get filled in automatically by the game because of their classes -->
-        <h1>Hi <span class="current-player-name">there</span>!</h1>
-        <h2>Here you are in <span class="current-place-name">some place</span></h2>
+      <div class="col-xs-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <!-- these <span> tags get filled in automatically by the game because of their classes -->
+            <h3 class="panel-title">Hi <span class="current-player-name">there</span>!</h1>
+          </div>
+          <div class="panel-body">
 
-        <!-- this gets filled in with the place text -->
-        <div id="text"></div>
+            <h2>Here you are in <span class="current-place-name">some place</span></h2>
 
-        <h3>From here you can travel to:</h3>
-        <ul id="destinations"><!-- don't put anything here --></ul>
+            <!-- this gets filled in with the place text -->
+            <div id="text"></div>
 
-        <h3>Inventory:</h3>
-        <ul id="inventory"><!-- don't put anything here --></ul>
+            <h3>From here you can travel to:</h3>
+            <ul id="destinations"><!-- don't put anything here --></ul>
+
+          </div>
+        </div>
       </div>
+
+      <div class="col-xs-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Inventory</h3>
+          </div>
+          <div class="panel-body" id="inventory">
+          </div>
+        </div>
+      </div>
+
     </section>
   </body>
 

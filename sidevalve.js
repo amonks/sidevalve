@@ -305,7 +305,15 @@ var Sidevalve = function() {
     for ( var i in inventory ) {
       var itemID = inventory[i];
       var item = API.game.objects[itemID];
-      $("#inventory").append("<li><h4>" + item.name + "</h4><img class='item img-responsive' id ='" + itemID + "' src='" + item.image + "'><p>" + item.text);
+      $("#inventory").append(`
+        <div class="col-xs-4">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">` + item.name + `</h3>
+            </div>
+            <div class="panel-body">
+              <img class='item img-responsive' id ='` + itemID + `' src='` + item.image + `'>
+              ` + renderMarkdown(item.text) )
     }
   };
 
