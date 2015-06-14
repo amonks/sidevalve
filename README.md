@@ -56,6 +56,12 @@ The first line of the script creates an instance of the Sidevalve engine. The se
 
 `Game` is defined in `game.js`.
 
+### The game object
+
+Everything that makes this sidevalve game different from that one (from place descriptions to this-player's-name) ((anything that starts in `game.js`)) is stored in `sidevalve.game`.
+
+In fact, when a player starts a new game, the `Game` object in `game.js` is *directly cloned* into `sidevalve.game`, but it updates as the game progresses. If you want to use javascript to interact with a game currently-in-progress, poke at `sidevalve.game`. Seriously.
+
 ### Public Functions
 
 You can use the following functions to interact with the engine once it's instantiated:
