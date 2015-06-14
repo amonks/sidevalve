@@ -190,6 +190,7 @@ var Sidevalve = function() {
     $(".new-game").click(function() {
       API.newGame();
     });
+    // activate change-name button
     $(".change-name").click(function() {
       API.setNameFromPrompt();
     });
