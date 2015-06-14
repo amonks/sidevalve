@@ -40,7 +40,9 @@ This link resets the game:
 
 ## I wanna get fancy with the javascript...
 
-Oh. Well, since you asked, here's some API documentation so you can use Sidevalve in your own projects.
+Great! [Read it](https://github.com/amonks/sidevalve/blob/gh-pages/sidevalve.js)! It's more comments than code, so you shouldn't have much trouble. If you have any issues, send me an [email](mailto:a@monks.co)
+
+Since you asked, though, here's some basic API documentation.
 
 ### Starting a game
 
