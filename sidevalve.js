@@ -305,15 +305,18 @@ var Sidevalve = function() {
     for ( var i in inventory ) {
       var itemID = inventory[i];
       var item = API.game.objects[itemID];
+      // apparently you can do a multiline string in javascript now enclosed in backticks
+      // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/template_strings
       $("#inventory").append(`
         <div class="col-xs-4">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <h3 class="panel-title">` + item.name + `</h3>
+              <h3 class="panel-title">${item.name}</h3>
             </div>
             <div class="panel-body">
-              <img class='item img-responsive' id ='` + itemID + `' src='` + item.image + `'>
-              ` + renderMarkdown(item.text) )
+              <img class='item img-responsive' id ='${itemID}' src='${item.image}'>
+              ${renderMarkdown(item.text)}
+      `)
     }
   };
 
