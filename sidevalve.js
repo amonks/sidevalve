@@ -110,23 +110,20 @@ var Sidevalve = function() {
     var placeID = API.game.player.location;
     var place = API.game.places[placeID];
 
-    // load the new place name
-    $(".current-place-name").text(place.name);
-
     // load the new place image
     $("#image").attr("src", place.image);
 
     // load the new place text
     renderText(place.text);
 
-    // load the player's name
-    $(".current-player-name").text(API.game.player.name);
-
     // load the new place destinations
     renderDestinations(place.destinations);
 
     // load the player's inventory
     renderInventory(API.game.player.inventory);
+
+    // insert data
+    renderInsertions();
   };
 
   // function to set the player's name with a bootstrap modal prompt
@@ -243,6 +240,18 @@ var Sidevalve = function() {
         }
       }
     }
+  };
+
+  // function to insert data into properly classed span tags
+  var renderInsertions = function() {
+    // load the new place name
+    $(".current-place-name").text(API.game.places[API.game.player.location].name);
+
+    // load the player's name
+    $(".current-player-name").text(API.game.player.name);
+
+    // load the game's title
+    $(".game-title").text(API.game.title);
   };
 
   // function to render the place text
