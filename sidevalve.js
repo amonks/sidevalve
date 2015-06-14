@@ -52,6 +52,29 @@ var Sidevalve = function() {
     setup();
     // try to load the game
     var loadedGame = API.load();
+
+    // !!! this next bit is very important !!!
+    // as explained above, API.stuff becomes a public, readable
+    // part of the sidevalve instance in-browser.
+    //
+    // API.game is where we keep the game's *state*.
+    // For a new game, the *state* is the `Game` object created
+    // in `game.js`. As the game progresses, that object
+    // changes: objects move into the player's inventory,
+    // their location changes, etc.
+    //
+    // So, API.game is super important. It's what we save and load.
+    // It's how we keep track of progress. It holds all this
+    // game's possible locations, all the text, and all of
+    // the player info. Everything.
+    //
+    // I'm not sure whether having API.game public is a good idea.
+    // On one hand, it makes it real easy for external programming
+    // to interact with a game in progress. (minigames anyone?)
+    // On the other hand, it makes it real easy for players to cheat
+    // Back to the first hand, this whole thing is running in their
+    // browser anyway, so if someone want to cheat that bad I can't
+    // really stop them.
     if (loadedGame) {
       API.game = loadedGame;
     } else {
@@ -62,6 +85,7 @@ var Sidevalve = function() {
   };
 
   // function to (re)start a new game
+  // see big comment in `API.start()` ^^^
   API.newGame = function(game) {
     // this is kind of sneaky. If we set `API.game = Game`,
     // our new-game-state is tied to the playing game and starts changing.
