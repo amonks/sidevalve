@@ -2,11 +2,30 @@
 
 // Here we're using Doug Crockford's constructor pattern
 // http://javascript.crockford.com/private.html
+// call `var sidevalve = new Sidevalve();` to construct a usable instance.
 var Sidevalve = function() {
 
-  // the Sidevalve() constructor returns this API object,
-  // so its members will be public.
+  // Since this Sidevalve function returns the below API object,
+  // any members of API (like the `start()` function below)
+  // will be available in the constructed `sidevalve` (lowercase)
+  // instance.
+  //
+  // Someone using this script, once they constructed their
+  // `sidevalve` instance, could call `sidevalve.start()`.
+  // They couldn't, however, call `sidevalve.renderDestinations()`
+  // because it *isn't* a child of API, as you'll see.
+  //
+  // `renderDestinations()` is used internally by `render()`, so
+  // I can keep it private and only expose the `render()` function.
+  //
+  // By segregating API functions from private ones, I can make sure
+  // the interface stays stable as I update the program. For example,
+  // I can change how `renderDestinations()` works and add functions
+  // willy-nilly, but as long as I make sure `render()` does what
+  // it's supposed to, nobody need know or care.
   var API = {};
+
+
 
   // function to start the game
   // you'll need to create your own game object and feed it in
@@ -14,7 +33,7 @@ var Sidevalve = function() {
   API.start = function(game) {
     setup();
     // try to load the game
-    var loadedGame = load();
+    var loadedGame = API.load();
     if (loadedGame) {
       API.game = loadedGame;
     } else {
@@ -24,7 +43,7 @@ var Sidevalve = function() {
     API.render();
   };
 
-  // function to start a new game
+  // function to (re)start a new game
   API.newGame = function(game) {
     // this is kind of sneaky. If we set `API.game = Game`,
     // our new-game-state is tied to the playing game and starts changing.
@@ -32,7 +51,7 @@ var Sidevalve = function() {
     // http://stackoverflow.com/questions/122102/what-is-the-most-efficient-way-to-clone-an-object
     API.game = JSON.parse(JSON.stringify(Game));
 
-    API.setName();
+    API.setNameFromPrompt();
   };
 
   // function to draw the game window (images, text, ...)
@@ -48,7 +67,7 @@ var Sidevalve = function() {
     $("#image").attr("src", place.image);
 
     // load the new place text
-    $("#text").text(place.text);
+    renderText(place.text);
 
     // load the player's name
     $(".current-player-name").text(API.game.player.name);
@@ -68,17 +87,15 @@ var Sidevalve = function() {
     API.game.player.location = id;
 
     // get any new objects here
-    debugger;
     getObjectsHere(id);
 
     API.render();
 
-    save();
+    API.save();
   };
 
-  // function to set the player's name
-  API.setName = function() {
-
+  // function to set the player's name with a bootstrap modal prompt
+  API.setNameFromPrompt = function() {
     // http://bootboxjs.com/
     // here we're creating a modal prompt to get the character's name
     bootbox.prompt({
@@ -91,19 +108,51 @@ var Sidevalve = function() {
           console.log("Prompt dismissed");
         } else {
           // or update the name
-          API.game.player.name = result;
+          API.setName(result);
         }
-        // save and render the result
-        save();
-        API.render();
       }
     });
   };
 
+  // function to set the player's name to a given string
+  API.setName = function(name) {
+    API.game.player.name = name;
+    // save and render the result
+    API.save();
+    API.render();
+  };
+
+  // function to load a saved game state object and returns it
+  // returns false if there's no saved game
+  API.load = function() {
+    // try to load a saved game from localStorage
+    var loadedGameState = localStorage.getItem("textGameState");
+
+    // add that game to the sidevalve so we can find it later
+    if (loadedGameState) {
+      console.log("loading game");
+      // it's saved as a string so we gotta objectify it
+      return JSON.parse(loadedGameState);
+    } else {
+      return false;
+    }
+  };
+
+  // function to save the game state into localStorage
+  API.save = function() {
+    console.log("saving!");
+    // gotta convert it to a string first
+    var gameState = JSON.stringify(API.game);
+    localStorage.setItem("textGameState", gameState);
+  };
+
+
+
+
   // these functions aren't members of the API object, so they're private.
 
   // function to set up the game
-  // this should be called before start
+  // this is called by `start()`
   // put anything in here that has to happen first one time
   setup = function() {
     // activate new-game button
@@ -114,11 +163,10 @@ var Sidevalve = function() {
 
   // function to pick up any objects in a location
   // and add them to the player's inventory
+  // called by `enter()`
   getObjectsHere = function(placeID) {
     var place = API.game.places[placeID];
-    debugger;
     if (place.get) {
-      debugger;
       // get everything in the place
       while (place.get.length > 0) {
         var newObject = place.get.pop();
@@ -127,9 +175,17 @@ var Sidevalve = function() {
     }
   };
 
+  // function to render the place text
+  // argument: a markdown-formatted string
+  // called by `render()`
+  renderText = function(markdown) {
+    var placeText = marked(markdown);
+    $("#text").html(placeText);
+  };
 
   // function to set up the destinations list for a place
   // argument: an array of new destination ids: ["concord", "worcester"]
+  // called by `render()`
   renderDestinations = function(destinations) {
     // clear existing destinations from the list
     $("#destinations").empty();
@@ -148,6 +204,9 @@ var Sidevalve = function() {
     });
   };
 
+  // function to render the player's inventory
+  // argument: an array of object ids: ["bong", "hat"]
+  // called by `render()`
   renderInventory = function(inventory) {
     // clear existing inventory from the list
     $("#inventory").empty();
@@ -160,29 +219,7 @@ var Sidevalve = function() {
     }
   };
 
-  // function to load a saved game
-  // returns false if there's no saved game
-  load = function() {
-    // try to load a saved game from localStorage
-    var loadedGameState = localStorage.getItem("textGameState");
 
-    // add that game to the sidevalve so we can find it later
-    if (loadedGameState) {
-      console.log("loading game");
-      // it's saved as a string so we gotta objectify it
-      return JSON.parse(loadedGameState);
-    } else {
-      return false;
-    }
-  };
-
-  // function to save the game state into localStorage
-  save = function() {
-    console.log("saving!");
-    // gotta convert it to a string first
-    var gameState = JSON.stringify(API.game);
-    localStorage.setItem("textGameState", gameState);
-  };
 
   // the constructor needs to return the public API object
   return API;

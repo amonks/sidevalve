@@ -37,7 +37,8 @@ Game = {
       // this name `Concord` does.
       "name": "Concord",
       "image": "http://i.imgur.com/dZzFBwc.jpg",
-      "text": "this is da conk",
+      // you can use markdown formatting in text, *da conk* will be italicized.
+      "text": "this is *da conk*",
       // You can have many destinations
       "destinations": ["worcester", "andover", "monks"]
     },
