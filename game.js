@@ -6,7 +6,7 @@ Game = {
 
   "player": {
     // this is the default name, it can be changed
-    "name": "Lame",
+    "name": "dude",
     // this is the starting location
     "location": "worcester",
     // this is the player's starting inventory
@@ -52,7 +52,7 @@ Game = {
     "monks": {
       "name": "Monks' House",
       "image": "http://i.imgur.com/ryi4rxg.jpg",
-      "text": "ey bro wanna puff piff?",
+      "text": "ey <span class='current-player-name'></span> wanna puff piff?",
       // or just one..
       "destinations": ["concord"],
       // when the player arrives here, 'weed' will be added to their inventory
@@ -88,7 +88,7 @@ Game = {
       // It won't even show up as an option. Maybe allude to that in text?
       "need": ["bong", "weed"],
       "image": "http://i.imgur.com/3KlOVbd.jpg",
-      "text": "eyyyyy",
+      "text": "eyyyyy <span class='current-player-name'></span> u win or something",
       "destinations": ["andover"]
     }
   }
