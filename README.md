@@ -60,8 +60,8 @@ The first line of the script creates an instance of the Sidevalve engine. The se
 
 You can use the following functions to interact with the engine once it's instantiated:
 
-*   `start(game)` is used above.
+*   `start(game)` starts the game: first trying to load a saved game, then starting a new one.
 *   `newGame()` starts a new game right back at the name prompt.
 *   `render()` re-updates your html tags. It's usually called automatically.
-*   `enter(place)` moves the player to another location and renders it.
-*   `setName()` opens a modal dialogue in which the player can change their name, then rerenders.
+*   `setNameFromPrompt()` opens a modal dialogue in which the player can change their name, then rerenders and saves.
+*   `setName(string)` changes the character's name to the given string, then rerenders and saves.
