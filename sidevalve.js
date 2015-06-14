@@ -185,7 +185,7 @@ var Sidevalve = function() {
   // function to set up the game
   // this is called by `start()`
   // put anything in here that has to happen first one time
-  setup = function() {
+  var setup = function() {
     // activate new-game button
     $(".new-game").click(function() {
       API.newGame();
@@ -193,7 +193,7 @@ var Sidevalve = function() {
   };
 
   // function to enter a place
-  enter = function(id) {
+  var enter = function(id) {
     console.log("entering " + id);
 
     // set the player location to the new place's id
@@ -210,7 +210,7 @@ var Sidevalve = function() {
   // function to pick up any objects in a location
   // and add them to the player's inventory
   // called by `enter()`
-  getObjectsHere = function(placeID) {
+  var getObjectsHere = function(placeID) {
     var place = API.game.places[placeID];
     if (place.get) {
       // get everything in the place
@@ -224,7 +224,7 @@ var Sidevalve = function() {
   // function to render the place text
   // argument: a markdown-formatted string
   // called by `render()`
-  renderText = function(markdown) {
+  var renderText = function(markdown) {
     var placeText = marked(markdown);
     $("#text").html(placeText);
   };
@@ -232,7 +232,7 @@ var Sidevalve = function() {
   // function to set up the destinations list for a place
   // argument: an array of new destination ids: ["concord", "worcester"]
   // called by `render()`
-  renderDestinations = function(destinations) {
+  var renderDestinations = function(destinations) {
     // clear existing destinations from the list
     $("#destinations").empty();
 
@@ -240,7 +240,13 @@ var Sidevalve = function() {
     for ( var d in destinations ) {
       var destinationID = destinations[d];
       var destinationPlace = API.game.places[destinationID];
-      $("#destinations").append("<li><a class='destination' id ='" + destinationID + "' href='#'>" + destinationPlace.name);
+      // if you don't need any things, go to the place
+      if (! destinationPlace.need) {
+        addDestination(destinationID, destinationPlace);
+      // otherwise, make sure you have the right things
+      } else if ( arrayContainsAnotherArray(destinationPlace.need, API.game.player.inventory) ) {
+        addDestination(destinationID, destinationPlace);
+      }
     }
 
     // activate links
@@ -250,10 +256,15 @@ var Sidevalve = function() {
     });
   };
 
+  // function to add a destination to the list
+  var addDestination = function(destinationID, destination) {
+    $("#destinations").append("<li><a class='destination' id ='" + destinationID + "' href='#'>" + destination.name);
+  };
+
   // function to render the player's inventory
   // argument: an array of object ids: ["bong", "hat"]
   // called by `render()`
-  renderInventory = function(inventory) {
+  var renderInventory = function(inventory) {
     // clear existing inventory from the list
     $("#inventory").empty();
 
@@ -263,6 +274,20 @@ var Sidevalve = function() {
       var item = API.game.objects[itemID];
       $("#inventory").append("<li><h4>" + item.name + "</h4><img class='item img-responsive' id ='" + itemID + "' src='" + item.image + "'><p>" + item.text);
     }
+  };
+
+  // function to check if an array contains all of the
+  // contents of another array. For example, to check if
+  // your inventory contains all of the objects you need
+  // to go to a place.
+  // returns true or false.
+  // http://stackoverflow.com/a/15514976
+  var arrayContainsAnotherArray = function(needle, haystack){
+    for(var i = 0; i < needle.length; i++){
+      if(haystack.indexOf(needle[i]) === -1)
+         return false;
+    }
+    return true;
   };
 
 

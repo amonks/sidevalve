@@ -76,6 +76,9 @@ Game = {
     },
     "fenn": {
       "name": "Fenn's House",
+      // You can't go to fenn's house without a bong and some weed!
+      // It won't even show up as an option. Maybe allude to that in text?
+      "need": ["bong", "weed"],
       "image": "http://i.imgur.com/3KlOVbd.jpg",
       "text": "eyyyyy",
       "destinations": ["andover"]
