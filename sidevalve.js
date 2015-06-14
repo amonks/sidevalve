@@ -304,7 +304,11 @@ var Sidevalve = function() {
 
   // function to add a destination to the list
   var addDestination = function(destinationID, destination) {
-    $("#destinations").append("<li><a class='destination' id ='" + destinationID + "' href='#'>" + destination.name);
+    $("#destinations").append(`
+      <li>
+        <a class='destination' id ='${destinationID}' href='#'>
+          ${destination.name}
+    `)
   };
 
   // function to render the player's inventory
@@ -327,7 +331,7 @@ var Sidevalve = function() {
               <h3 class="panel-title">${item.name}</h3>
             </div>
             <div class="panel-body">
-              <img class='item img-responsive' id ='${itemID}' src='${item.image}'>
+              <img class='item img-responsive' id='${itemID}' src='${item.image}' />
               ${renderMarkdown(item.text)}
       `)
     }
@@ -368,7 +372,6 @@ var Sidevalve = function() {
     var image = new Image()
     image.src = url;
   }
-
 
   // the constructor needs to return the public API object
   return API;
