@@ -1,6 +1,6 @@
 /* sidevalve.js
 
-Copyright (c) 2015, Andrew Monks <a@monks.co>
+Copyright (c) 2015, Andrew Monks <a@monks.co> & Fenn Macon
 
 Permission to use, copy, modify, and/or distribute this software for
 any purpose with or without fee is hereby granted, provided that the
@@ -17,7 +17,44 @@ TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 PERFORMANCE OF THIS SOFTWARE.
 */
 
+this["Handlebars"] = this["Handlebars"] || {};
+this["Handlebars"]["templates"] = this["Handlebars"]["templates"] || {};
 
+this["Handlebars"]["templates"]["src/handlebars/about-text.md.hbs"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+    var helper, alias1=helpers.helperMissing, alias2="function", alias3=this.escapeExpression;
+
+  return "## "
+    + alias3(((helper = (helper = helpers.title || (depth0 != null ? depth0.title : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"title","hash":{},"data":data}) : helper)))
+    + "\n\n"
+    + alias3(((helper = (helper = helpers.about || (depth0 != null ? depth0.about : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"about","hash":{},"data":data}) : helper)))
+    + "\n\n### Sidevalve\n\nThis game runs on [Sidevalve](https://github.com/sidevalve/sidevalve), a pretty cool game engine by Andrew Monks and Fenn Macon.\n\nYou can make your own game real easy.\n";
+},"useData":true});
+
+this["Handlebars"]["templates"]["src/handlebars/destination.html.hbs"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+    var stack1, helper, alias1=this.escapeExpression;
+
+  return "<li>\n  <a class='destination' id ='"
+    + alias1(((helper = (helper = helpers.destinationID || (depth0 != null ? depth0.destinationID : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"destinationID","hash":{},"data":data}) : helper)))
+    + "' href='#'>\n    "
+    + alias1(this.lambda(((stack1 = (depth0 != null ? depth0.destination : depth0)) != null ? stack1.name : stack1), depth0))
+    + "</a>\n</li>\n";
+},"useData":true});
+
+this["Handlebars"]["templates"]["src/handlebars/inventory-object.html.hbs"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+    var helper, alias1=helpers.helperMissing, alias2="function", alias3=this.escapeExpression;
+
+  return "<div class=\"col-xs-4\">\n  <div class=\"panel panel-default\">\n    <div class=\"panel-heading\">\n      <h3 class=\"panel-title\">"
+    + alias3(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"name","hash":{},"data":data}) : helper)))
+    + "</h3>\n    </div>\n    <div class=\"panel-body\">\n      <img class='item img-responsive' src='"
+    + alias3(((helper = (helper = helpers.image || (depth0 != null ? depth0.image : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"image","hash":{},"data":data}) : helper)))
+    + "' />\n      "
+    + alias3(((helper = (helper = helpers.text || (depth0 != null ? depth0.text : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"text","hash":{},"data":data}) : helper)))
+    + "\n    </div>\n  </div>\n</div>\n";
+},"useData":true});
+
+this["Handlebars"]["templates"]["src/handlebars/inventory-panel.html.hbs"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+    return "<div id=\"inventory-panel\" class=\"col-xs-6\">\n  <div class=\"panel panel-default\">\n    <div class=\"panel-heading\">\n      <h3 class=\"panel-title\">Inventory</h3>\n    </div>\n    <div class=\"panel-body\" id=\"inventory\">\n    </div>\n  </div>\n</div>\n";
+},"useData":true});
 // Here we're using Doug Crockford's constructor pattern
 // http://javascript.crockford.com/private.html
 // call `var sidevalve = new Sidevalve();` to construct a usable instance.
@@ -91,17 +128,7 @@ var Sidevalve = function() {
     // inject inventory if necessary
     // see https://github.com/sidevalve/sidevalve/issues/8
     if (API.game.objects) {
-      $("#game-text").after(`
-        <div id="inventory-panel" class="col-xs-6">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h3 class="panel-title">Inventory</h3>
-            </div>
-            <div class="panel-body" id="inventory">
-            </div>
-          </div>
-        </div>`
-      )
+      $("#game-text").after(renderHandlebars('inventory-panel.html'));
     }
 
 
@@ -267,6 +294,12 @@ var Sidevalve = function() {
     });
   };
 
+  // function to render a handlebars template
+  var renderHandlebars = function(t, context) {
+    var template = Handlebars.templates['src/handlebars/' + t + '.hbs'];
+    return template(context);
+  };
+
   // function to display an alert
   alert = function(text, type) {
     var alert = renderMarkdown(text);
@@ -281,17 +314,7 @@ var Sidevalve = function() {
 
   // function to show the about box
   showAbout = function() {
-    var aboutText = `
-## ${API.game.title}
-
-${API.game.about}
-
-### Sidevalve
-
-This game runs on [Sidevalve](https://github.com/sidevalve/sidevalve)
-, a pretty cool game engine by Andrew Monks and Fenn Macon.
-
-You can make your own game real easy.`;
+    var aboutText = renderHandlebars('about-text.md');
     bootbox.alert(renderMarkdown(aboutText));
   };
 
@@ -378,11 +401,10 @@ You can make your own game real easy.`;
 
   // function to add a destination to the list
   var addDestination = function(destinationID, destination) {
-    $("#destinations").append(`
-      <li>
-        <a class='destination' id ='${destinationID}' href='#'>
-          ${destination.name}
-    `)
+    $("#destinations").append(renderHandlebars('destination.html', {
+      destination: destination,
+      destinationID: destinationID
+    }));
   };
 
   // function to render the player's inventory
@@ -398,16 +420,7 @@ You can make your own game real easy.`;
       var item = API.game.objects[itemID];
       // apparently you can do a multiline string in javascript now enclosed in backticks
       // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/template_strings
-      $("#inventory").append(`
-        <div class="col-xs-4">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h3 class="panel-title">${item.name}</h3>
-            </div>
-            <div class="panel-body">
-              <img class='item img-responsive' id='${itemID}' src='${item.image}' />
-              ${renderMarkdown(item.text)}
-      `)
+      $("#inventory").append( renderHandlebars('inventory-object.html', item) );
     }
   };
 
