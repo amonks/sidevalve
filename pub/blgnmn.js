@@ -2,10 +2,10 @@
 
 Game = {
   // this title shows up on the top of the page
-  "title": "Demo Sidevalve Adventure",
+  "title": "Belgian Man Suburban Adventure!",
 
   // this text shows up in the `about` popup
-  "about": "This is a *super* cool demo game about weed.",
+  "about": "Get to the gig!",
 
   // this text shows up at the beginning of the game
   "intro": "Sup <span class='current-player-name'></span>! You should try to find some grass and a bong and then go to Fenn's house.",
@@ -21,18 +21,18 @@ Game = {
 
   // this is a list of inventory-able objects in the game.
   "objects": {
-    "hat": {
-      "name": "cool hat",
-      "image": "http://i.imgur.com/L75ItJ4.jpg",
+    "chain": {
+      "name": "gold chain",
+      "image": "http://www.sarraf.com/product_images/b/14k_yellow_gold_8_2mm_cuban_chain_necklace_24___91460.jpg",
       // this "acquisition" text will show up when you find the object
-      "acquisition": "You remember that you're wearing your *cool hat*.",
-      "text": "wow this must be the coolest hat ever."
+      "acquisition": "You remember that you're wearing your *gold chain*.",
+      "text": "wow this must be the goldest chain ever."
     },
-    "bong": {
-      "name": "sweet bong",
-      "image": "http://i.imgur.com/9duj9DV.jpg",
-      "acquisition": "You finally get your bong back from your landlord",
-      "text": "This looks like a pretty sweet bong."
+    "shades": {
+      "name": "killer shades",
+      "image": "http://images.vectorhq.com/images/previews/1a1/stunna-shades-psd-461143.png",
+      "acquisition": "You finally get your shades back from your ex",
+      "text": "these will never sit right again."
     },
     "weed": {
       "name": "fresh nugs",
@@ -85,7 +85,7 @@ Game = {
       // Or you can put images right in the repository
       "image": "images/clark.jpg",
       "text": "time 2 learn bro",
-      "get": ["bong"],
+      "get": ["shades"],
       "destinations": ["worcester", "tom"]
     },
     "tom": {
@@ -104,7 +104,7 @@ Game = {
       "name": "Andover",
       "image": "http://i.imgur.com/CgctDuE.jpg",
       "text": "this is da AND",
-      "get": ["hat"],
+      "get": ["chain"],
       "destinations": ["worcester", "fenn"]
     },
     "fenn": {
