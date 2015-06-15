@@ -257,7 +257,7 @@ var Sidevalve = function() {
 
   // function to show the about box
   showAbout = function() {
-    var aboutText = renderHandlebars('about-text.md');
+    var aboutText = renderHandlebars('about-text.md', API.game);
     bootbox.alert(renderMarkdown(aboutText));
   };
 
