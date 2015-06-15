@@ -260,7 +260,7 @@ var Sidevalve = function() {
   // function to render a handlebars template
   var renderHandlebars = function(t) {
     var template = Handlebars.templates[t + '.hbs'];
-    $("#game-text").after(template(API.game));
+    return template(API.game);
   };
 
   // function to display an alert
@@ -278,6 +278,7 @@ var Sidevalve = function() {
   // function to show the about box
   showAbout = function() {
     var aboutText = renderHandlebars('about-text.md');
+    debugger;
     bootbox.alert(renderMarkdown(aboutText));
   };
 
