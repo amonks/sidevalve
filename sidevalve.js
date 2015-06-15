@@ -91,17 +91,7 @@ var Sidevalve = function() {
     // inject inventory if necessary
     // see https://github.com/sidevalve/sidevalve/issues/8
     if (API.game.objects) {
-      $("#game-text").after(`
-        <div id="inventory-panel" class="col-xs-6">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h3 class="panel-title">Inventory</h3>
-            </div>
-            <div class="panel-body" id="inventory">
-            </div>
-          </div>
-        </div>`
-      )
+      $("#game-text").after(renderHandlebars('inventory-panel.html'));
     }
 
 
@@ -267,6 +257,12 @@ var Sidevalve = function() {
     });
   };
 
+  // function to render a handlebars template
+  var renderHandlebars = function(t) {
+    var template = Handlebars.templates[t + '.hbs'];
+    $("#game-text").after(template(API.game));
+  };
+
   // function to display an alert
   alert = function(text, type) {
     var alert = renderMarkdown(text);
@@ -281,17 +277,7 @@ var Sidevalve = function() {
 
   // function to show the about box
   showAbout = function() {
-    var aboutText = `
-## ${API.game.title}
-
-${API.game.about}
-
-### Sidevalve
-
-This game runs on [Sidevalve](https://github.com/sidevalve/sidevalve)
-, a pretty cool game engine by Andrew Monks and Fenn Macon.
-
-You can make your own game real easy.`;
+    var aboutText = renderHandlebars('about-text.md');
     bootbox.alert(renderMarkdown(aboutText));
   };
 
@@ -378,11 +364,11 @@ You can make your own game real easy.`;
 
   // function to add a destination to the list
   var addDestination = function(destinationID, destination) {
-    $("#destinations").append(`
-      <li>
-        <a class='destination' id ='${destinationID}' href='#'>
-          ${destination.name}
-    `)
+    var template = Handlebars.templates['destination.html.hbs'];
+    $("#destinations").append(template({
+      destination: destination,
+      destinationID: destinationID
+    }));
   };
 
   // function to render the player's inventory
@@ -398,16 +384,8 @@ You can make your own game real easy.`;
       var item = API.game.objects[itemID];
       // apparently you can do a multiline string in javascript now enclosed in backticks
       // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/template_strings
-      $("#inventory").append(`
-        <div class="col-xs-4">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h3 class="panel-title">${item.name}</h3>
-            </div>
-            <div class="panel-body">
-              <img class='item img-responsive' id='${itemID}' src='${item.image}' />
-              ${renderMarkdown(item.text)}
-      `)
+      var template = Handlebars.templates['inventory-object.html.hbs'];
+      $("#inventory").append( template(item) );
     }
   };
 
