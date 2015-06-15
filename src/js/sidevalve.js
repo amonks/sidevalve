@@ -1,23 +1,3 @@
-/* sidevalve.js
-
-Copyright (c) 2015, Andrew Monks <a@monks.co>
-
-Permission to use, copy, modify, and/or distribute this software for
-any purpose with or without fee is hereby granted, provided that the
-above copyright notice and this permission notice appear in all
-copies.
-
-THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL
-WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE
-AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL
-DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR
-PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER
-TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
-PERFORMANCE OF THIS SOFTWARE.
-*/
-
-
 // Here we're using Doug Crockford's constructor pattern
 // http://javascript.crockford.com/private.html
 // call `var sidevalve = new Sidevalve();` to construct a usable instance.
@@ -258,9 +238,9 @@ var Sidevalve = function() {
   };
 
   // function to render a handlebars template
-  var renderHandlebars = function(t) {
-    var template = Handlebars.templates[t + '.hbs'];
-    return template(API.game);
+  var renderHandlebars = function(t, context) {
+    var template = Handlebars.templates['src/handlebars/' + t + '.hbs'];
+    return template(context);
   };
 
   // function to display an alert
@@ -278,7 +258,6 @@ var Sidevalve = function() {
   // function to show the about box
   showAbout = function() {
     var aboutText = renderHandlebars('about-text.md');
-    debugger;
     bootbox.alert(renderMarkdown(aboutText));
   };
 
@@ -365,8 +344,7 @@ var Sidevalve = function() {
 
   // function to add a destination to the list
   var addDestination = function(destinationID, destination) {
-    var template = Handlebars.templates['destination.html.hbs'];
-    $("#destinations").append(template({
+    $("#destinations").append(renderHandlebars('destination.html', {
       destination: destination,
       destinationID: destinationID
     }));
@@ -385,8 +363,7 @@ var Sidevalve = function() {
       var item = API.game.objects[itemID];
       // apparently you can do a multiline string in javascript now enclosed in backticks
       // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/template_strings
-      var template = Handlebars.templates['inventory-object.html.hbs'];
-      $("#inventory").append( template(item) );
+      $("#inventory").append( renderHandlebars('inventory-object.html', item) );
     }
   };
 
