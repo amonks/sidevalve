@@ -38,7 +38,7 @@ TODO: maybe recommend io.js instead? does it even install npm? probably.
 
 Once npm is installed, open up the sidevalve directory in a terminal and run `npm install`. It'll look through [package.json](https://github.com/sidevalve/sidevalve/blob/master/package.json), and install everything on the list into a new folder called node_modules.
 
-You'll probably also need to run `npm install -g grunt` to get the `grunt` command line tool.
+You'll probably also need to run `npm install -g grunt-cli` to get the `grunt` command line tool.
 
 TODO: check
 

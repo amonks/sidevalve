@@ -1,6 +1,6 @@
 /* sidevalve.js
 
-Copyright (c) 2015, Andrew Monks <a@monks.co> & Fenn Macon
+Copyright (c) 2015, Andrew Monks <monks.co> & Fenn Macon <fenn.in>
 
 Permission to use, copy, modify, and/or distribute this software for
 any purpose with or without fee is hereby granted, provided that the

@@ -92,7 +92,15 @@ module.exports = function(grunt) {
         base: 'demo'
       },
       src: ['**']
-    }
+    },
+
+    'watch': {
+      sass: {
+        // We watch and compile sass files as normal but don't live reload here
+        files: ['src/**/*'],
+        tasks: ['build']
+      },
+    },
 
   });
 
@@ -103,6 +111,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jade');
   grunt.loadNpmTasks('grunt-contrib-handlebars');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-gh-pages');
 
 
