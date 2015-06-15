@@ -4,7 +4,7 @@ module.exports = function(grunt) {
 
     'clean': {
       build: {
-        src: ["demo"]
+        src: ["demo", "dist"]
       }
     },
 
