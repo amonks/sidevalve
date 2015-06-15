@@ -38,6 +38,33 @@ module.exports = function(grunt) {
       },
     },
 
+    'jade': {
+      index: {
+        options: {
+          data: {
+            debug: false,
+            theme: false,
+            game: 'game'
+          }
+        },
+        files: {
+          "demo/index.html": "src/jade/index.html.jade"
+        }
+      },
+      blgnmn: {
+        options: {
+          data: {
+            debug: false,
+            theme: '8bitstyle',
+            game: 'blgnmn'
+          }
+        },
+        files: {
+          "demo/blgnmn.html": "src/jade/index.html.jade"
+        }
+      }
+    },
+
     'handlebars': {
       compile: {
         options: {
@@ -73,6 +100,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-jade');
   grunt.loadNpmTasks('grunt-contrib-handlebars');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-gh-pages');
@@ -85,6 +113,8 @@ module.exports = function(grunt) {
   grunt.registerTask('build', [
     'cleanup',
     'copy:pub',
+    'jade:index',
+    'jade:blgnmn',
     'handlebars:compile',
     'concat:js',
     'uglify:js',
