@@ -19,16 +19,6 @@ module.exports = function(grunt) {
           },
         ]
       },
-      themes: {
-        files: [
-          {
-            cwd: 'src/css',
-            src: '**/*',
-            dest: 'themes',
-            expand: true
-          },
-        ]
-      },
       pub: {
         files: [
           {
@@ -86,6 +76,29 @@ module.exports = function(grunt) {
       }
     },
 
+    'stylus': {
+      compile: {
+        options: {
+          paths: ['src/stylus/import']
+        },
+        files: function() {
+          var themes = [];
+          themes = grunt.file.expand('src/stylus/*');
+          var output = {};
+          for (var t in themes) {
+            var themePath = themes[t];
+            // skip the import folder
+            if (themePath.indexOf('import') === -1) {
+              var parts = themePath.split('/');
+              var theme = parts[parts.length - 1];
+              output["demo/themes/" + theme + ".css"] = ["src/stylus/" + theme + "/**/*"];
+            }
+          }
+          return output;
+        }()
+      }
+    },
+
     'uglify': {
       js: {
         options: {
@@ -122,6 +135,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-handlebars');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-stylus');
   grunt.loadNpmTasks('grunt-gh-pages');
 
 
@@ -134,6 +148,7 @@ module.exports = function(grunt) {
     'copy:pub',
     'jade:index',
     'jade:blgnmn',
+    'stylus:compile',
     'handlebars:compile',
     'concat:js',
     'uglify:js',
