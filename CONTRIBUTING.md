@@ -10,15 +10,13 @@ If you start working on something, assign your self the issue so other people kn
 
 If you've addressed whatever an issue covers, close that issue.
 
-### how we use labels
-
-we use these labels:
+### labels
 
 * `back-end` `front-end` and `game-end` to tag parts of the codebase
 * `question` for stuff that needs further discussion
 * `bug` for stuff that is **currently broken** ie crashes the game
 
-### how we use milestones
+### milestones
 
 we use the `SBRBN ADVNTR` milestone to track issues that need to be closed before the *BLGNMN SBRBN ADVNTR* game can come out.
 
