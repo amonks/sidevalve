@@ -20,6 +20,10 @@ If you've addressed whatever an issue covers, close that issue.
 
 we use the `SBRBN ADVNTR` milestone to track issues that need to be closed before the *BLGNMN SBRBN ADVNTR* game can come out.
 
+### assignment
+
+Assign yourself issues that you are *currently working on*. Assign other people issues where you *need their involvement*.
+
 ## how we use branches
 
 [forthcoming](https://github.com/sidevalve/sidevalve/issues/7)
