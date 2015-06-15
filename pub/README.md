@@ -1,6 +1,6 @@
 # sidevalve
 
-js cyoa game engine
+cool js cyoa game engine
 
 ![Ford Sidevalve engine](http://i.imgur.com/sU1oAdw.jpg)
 
