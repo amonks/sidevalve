@@ -12,4 +12,4 @@ If you've addressed whatever an issue covers, close that issue.
 
 ## how we use branches
 
-!!! forthcoming
+!!! [forthcoming](https://github.com/sidevalve/sidevalve/issues/7)
