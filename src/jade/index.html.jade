@@ -49,14 +49,11 @@ html
           .panel-heading
             // these <span> tags get filled in automatically by the game because of their classes
             h3.panel-title
-              | Hi
-              span.current-player-name there
-              | !
+              p Hi #[span.current-player-name there]!
 
           .panel-body
             h2
-              | Here you are in
-              span.current-place-name some place
+              p Here you are in #[span.current-place-name some place]
             // this gets filled in with the place text
             #text
 

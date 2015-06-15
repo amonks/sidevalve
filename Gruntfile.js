@@ -42,7 +42,7 @@ module.exports = function(grunt) {
       index: {
         options: {
           data: {
-            debug: false,
+            debug: true,
             theme: false,
             game: 'game'
           }
@@ -54,7 +54,7 @@ module.exports = function(grunt) {
       blgnmn: {
         options: {
           data: {
-            debug: false,
+            debug: true,
             theme: '8bitstyle',
             game: 'blgnmn'
           }
