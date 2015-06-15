@@ -1,9 +1,13 @@
 @import url(http://fonts.googleapis.com/css?family=Press+Start+2P);
+@import url(http://fonts.googleapis.com/css?family=Inconsolata);
 body{
 	background-color: black;
 	font-family: 'Press Start 2P', cursive;
 }
 #image{
+	padding:1px;
+	border:1px dashed #eeeeee;
+	background-color:#000000;
 }
 #inventory{
 	border-style: double;
@@ -13,13 +17,15 @@ body{
 }
 .panel{
 	border-style: double dashed;
-	text-align: center;
 	width: 100%;
 	margin-left: auto;
 	margin-right: auto;
 	border-color: #eeeeee;
 	color: #eeeeee;
 	background-color: #444444;
+}
+p {
+	font-family: 'Inconsolata', 400;
 }
 h1 {
 	font-size: 16px;
@@ -41,7 +47,7 @@ a:hover {
   from { opacity: 1.0; }
   to { opacity: 0.0; }
 }
-.blink {
+em {
   -webkit-animation-name: blinker;
   -webkit-animation-iteration-count: infinite;
   -webkit-animation-timing-function: cubic-bezier(0.5, -0.5, 0.5, 1.5);
