@@ -6,7 +6,7 @@ js cyoa game engine
 
 Sidevalve is a cool lil engine for making choose-your-own-adventure games for the Internet without thinking too much about code.
 
-This readme is about *developing sidevalve itself*, **not** *developing games using sidevalve*. If you're looking to make a game, visit the [gh-pages branch](//github.com/sidevalve/sidevalve).
+**This readme is about *developing sidevalve itself*, not *developing games using sidevalve*. If you're looking to make a game, visit the [gh-pages branch](https://github.com/sidevalve/sidevalve).**
 
 ## understanding sidevalve
 
