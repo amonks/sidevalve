@@ -8,7 +8,7 @@ Game = {
   "about": "Get to the gig!",
 
   // this text shows up at the beginning of the game
-  "intro": "Sup <span class='current-player-name'></span>! You should try to find some grass and a bong and then go to Fenn's house.",
+  "intro": "Sup <span class='current-player-name'></span>! There's a show at *Arjuntina* tonight!",
 
   "player": {
     // this is the default name, it can be changed
