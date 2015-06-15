@@ -1,0 +1,55 @@
+@import url(http://fonts.googleapis.com/css?family=Press+Start+2P);
+body{
+	background-color: black;
+	font-family: 'Press Start 2P', cursive;
+}
+#image{
+}
+#inventory{
+	border-style: double;
+	text-align: center;
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	border-color: #eeeeee;
+	color: #eeeeee;
+	text-align: left;
+	background-color: #444444;
+}
+.panel{
+	border-style: double dashed;
+	text-align: center;
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	border-color: #eeeeee;
+	color: #eeeeee;
+	text-align: left;
+	background-color: #444444;
+}
+h1 {
+	font-size: 16px;
+}
+h2 {
+	font-size: 14px;
+}
+h3 {
+	font-size: 12px;
+}
+a {
+
+}
+a:hover { 
+    color: #ff69b4;
+    text-decoration: none;
+}
+@-webkit-keyframes blinker {  
+  from { opacity: 1.0; }
+  to { opacity: 0.0; }
+}
+.blink {
+  -webkit-animation-name: blinker;  
+  -webkit-animation-iteration-count: infinite;  
+  -webkit-animation-timing-function: cubic-bezier(0.5, -0.5, 0.5, 1.5);
+  -webkit-animation-duration: 1.5s; 
+}			
