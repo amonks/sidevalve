@@ -61,7 +61,7 @@ Game = {
       // you can use markdown formatting in text, *da conk* will be italicized.
       "text": "this is *da conk*",
       // You can have many destinations
-      "destinations": ["worcester", "andover", "monks"]
+      "destinations": ["worcester", "andover", "monks", "stow"]
     },
     "monks": {
       "name": "Monks' House",
@@ -78,7 +78,7 @@ Game = {
       // You can use external images
       "image": "http://i.imgur.com/IKmHxjP.jpg",
       "text": "this b the woo",
-      "destinations": ["concord", "andover", "clark"]
+      "destinations": ["concord", "andover", "clark", "stow"]
     },
     "clark": {
       "name": "Clark University",
@@ -98,6 +98,21 @@ Game = {
       "lose": ["lighter"],
       "destinations": ["clark"]
     },
+
+    "stow": {
+      "name": "Stow",
+      "image": "images/travel.gif",
+      "text": "What a beautiful town!",
+      "need": ["shades", "chain", "weed"],
+      "destinations": ["arjuntina", "worcester"]
+    },
+    "arjuntina": {
+      "name": "Arjuntina",
+      "image": "images/arjuntina.jpg",
+      "text": "<span class='current-player-name'></span>, you made it!",
+      "need": ["shades", "chain", "weed"],
+      "destinations": ["worcester"]
+    },    
 
 
     "andover": {
