@@ -36,6 +36,14 @@ Game = {
       "image": "http://i.imgur.com/QXXXSlH.jpg",
       "acquisition": "You score some grass",
       "text": "these are some real steezy nugs."
+    },
+    "lighter": {
+      "name": "Tom Foley's lighter",
+      "image": "http://i.imgur.com/6xdP75w.jpg",
+      "acquisition": "Fenn gives you Tom Foley's lighter",
+      // this `loss` text will show up when you lose the object
+      "loss": "Hey! Give back my lighter!",
+      "text": "This lighter is really cool I guess."
     }
   },
 
@@ -75,8 +83,19 @@ Game = {
       "image": "images/clark.jpg",
       "text": "time 2 learn bro",
       "get": ["bong"],
-      "destinations": ["worcester"]
+      "destinations": ["worcester", "tom"]
     },
+    "tom": {
+      "name": "Tom Foley's dorm",
+      "image": "http://i.imgur.com/c88DS9v.png",
+      "text": "sup <span class='current-player-name'></span>",
+      // You need the lighter object to get here
+      "need": ["lighter"],
+      // but you lose it when you arrive
+      "lose": ["lighter"],
+      "destinations": ["clark"]
+    },
+
 
     "andover": {
       "name": "Andover",
@@ -90,6 +109,7 @@ Game = {
       // You can't go to fenn's house without a bong and some weed!
       // It won't even show up as an option. Maybe allude to that in text?
       "need": ["bong", "weed"],
+      "get": ["lighter"],
       "image": "http://i.imgur.com/3KlOVbd.jpg",
       "text": "eyyyyy <span class='current-player-name'></span> u win or something",
       "destinations": ["andover"]

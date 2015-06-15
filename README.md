@@ -70,6 +70,10 @@ You can use the following functions to interact with the engine once it's instan
 
 *   `start(game)` starts the game: first trying to load a saved game, then starting a new one.
 *   `newGame()` starts a new game right back at the name prompt.
+*   `getPossibleDestinations()` returns an array of the places you can go from where you are.
+*   `enter(placeID)` moves you to the specified place, if possible
 *   `render()` re-updates your html tags. It's usually called automatically.
 *   `setNameFromPrompt()` opens a modal dialogue in which the player can change their name, then rerenders and saves.
 *   `setName(string)` changes the character's name to the given string, then rerenders and saves.
+*   `load()` tries to load a saved game and returns it or false
+*   `save()` saves the `game` object to localStorage

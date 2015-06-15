@@ -107,9 +107,52 @@ var Sidevalve = function() {
     API.setNameFromPrompt();
   };
 
+  // function to get a list of the places you can travel to
+  API.getPossibleDestinations = function() {
+    var currentPlace = API.game.places[ API.game.player.location ];
+
+    // array to hold the output
+    var possibleDestinations = [];
+
+    for ( var d in currentPlace.destinations ) {
+      var destinationID = currentPlace.destinations[d];
+      var destinationPlace = API.game.places[destinationID];
+
+      // if you don't need any things, add the place to the list
+      if (! destinationPlace.need ) {
+        possibleDestinations.push( destinationID );
+      // otherwise, make sure you have the right things
+      } else if ( arrayContainsAnotherArray(destinationPlace.need, API.game.player.inventory) ) {
+        possibleDestinations.push( destinationID );
+      }
+    }
+
+    return possibleDestinations;
+  };
+
+  // function to enter a place
+  API.enter = function(id) {
+    // check if we can get in
+    if (API.getPossibleDestinations().indexOf(id) != -1) {
+      // set the player location to the new place's id
+      API.game.player.location = id;
+
+      // now you can get to this place whenever
+      API.game.places[id].need = null;
+
+      // get any new objects here
+      getObjectsHere(id);
+
+      API.render();
+      API.save();
+    } else {
+      alert("You can't get there from here!", "danger");
+    }
+
+  };
+
   // function to draw the game window (images, text, ...)
   API.render = function() {
-
     // create a place variable for convenience
     var placeID = API.game.player.location;
     var place = API.game.places[placeID];
@@ -121,7 +164,7 @@ var Sidevalve = function() {
     renderText(place.text);
 
     // load the new place destinations
-    renderDestinations(place.destinations);
+    renderDestinations();
 
     // load the player's inventory
     renderInventory(API.game.player.inventory);
@@ -214,24 +257,9 @@ var Sidevalve = function() {
     $("#alerts").empty();
   };
 
-  // function to enter a place
-  var enter = function(id) {
-    console.log("entering " + id);
-
-    // set the player location to the new place's id
-    API.game.player.location = id;
-
-    // get any new objects here
-    getObjectsHere(id);
-
-    API.render();
-
-    API.save();
-  };
-
   // function to pick up any objects in a location
   // and add them to the player's inventory
-  // called by `enter()`
+  // called by `API.enter()`
   var getObjectsHere = function(placeID) {
     var place = API.game.places[placeID];
     if (place.get) {
@@ -239,8 +267,21 @@ var Sidevalve = function() {
       while (place.get.length > 0) {
         var newObject = place.get.pop();
         API.game.player.inventory.push(newObject);
+        // show notice
         if (API.game.objects[newObject].acquisition) {
           alert(API.game.objects[newObject].acquisition, "success");
+        }
+      }
+    }
+    if (place.lose) {
+      // lose everything you're supposed to
+      while (place.lose.length > 0) {
+        var lostObject = place.lose.pop();
+        var lostObjectIndex = API.game.player.inventory.indexOf(lostObject);
+        API.game.player.inventory.splice(lostObjectIndex, 1);
+        // show notice
+        if (API.game.objects[lostObject].acquisition) {
+          alert(API.game.objects[lostObject].loss, "success");
         }
       }
     }
@@ -277,28 +318,23 @@ var Sidevalve = function() {
   // function to set up the destinations list for a place
   // argument: an array of new destination ids: ["concord", "worcester"]
   // called by `render()`
-  var renderDestinations = function(destinations) {
+  var renderDestinations = function() {
     // clear existing destinations from the list
     $("#destinations").empty();
 
     // add new destinations to the list
-    for ( var d in destinations ) {
+    var destinations = API.getPossibleDestinations();
+    for (var d in destinations) {
       var destinationID = destinations[d];
       var destinationPlace = API.game.places[destinationID];
-      // if you don't need any things, go to the place
-      if (! destinationPlace.need) {
-        addDestination(destinationID, destinationPlace);
-      // otherwise, make sure you have the right things
-      } else if ( arrayContainsAnotherArray(destinationPlace.need, API.game.player.inventory) ) {
-        addDestination(destinationID, destinationPlace);
-      }
+      addDestination(destinationID, destinationPlace);
     }
 
     // activate links
     $(".destination").click(function() {
       clearAlerts();
       // `this` is the link itself: <a id='worcester' href='#'>
-      enter(this.id);
+      API.enter(this.id);
     });
   };
 
