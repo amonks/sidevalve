@@ -88,6 +88,22 @@ var Sidevalve = function() {
     // preload images
     preloadImages();
 
+    // inject inventory if necessary
+    // see https://github.com/sidevalve/sidevalve/issues/8
+    if (API.game.objects) {
+      $("#game-text").after(`
+        <div id="inventory-panel" class="col-xs-6">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Inventory</h3>
+            </div>
+            <div class="panel-body" id="inventory">
+            </div>
+          </div>
+        </div>`
+      )
+    }
+
 
     API.render();
   };
