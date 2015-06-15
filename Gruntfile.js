@@ -19,6 +19,16 @@ module.exports = function(grunt) {
           },
         ]
       },
+      themes: {
+        files: [
+          {
+            cwd: 'src/css',
+            src: '**/*',
+            dest: 'themes',
+            expand: true
+          },
+        ]
+      },
       pub: {
         files: [
           {
