@@ -13,13 +13,15 @@ body{
 }
 .panel{
 	border-style: double dashed;
-	text-align: center;
 	width: 100%;
 	margin-left: auto;
 	margin-right: auto;
 	border-color: #eeeeee;
 	color: #eeeeee;
 	background-color: #444444;
+}
+p {
+	font-family: helvetica;
 }
 h1 {
 	font-size: 16px;
