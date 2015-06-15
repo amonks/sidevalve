@@ -35,17 +35,17 @@ h3 {
 a {
 	text-align: left;
 }
-a:hover { 
+a:hover {
     color: #ff69b4;
     text-decoration: none;
 }
-@-webkit-keyframes blinker {  
+@-webkit-keyframes blinker {
   from { opacity: 1.0; }
   to { opacity: 0.0; }
 }
 .blink {
-  -webkit-animation-name: blinker;  
-  -webkit-animation-iteration-count: infinite;  
+  -webkit-animation-name: blinker;
+  -webkit-animation-iteration-count: infinite;
   -webkit-animation-timing-function: cubic-bezier(0.5, -0.5, 0.5, 1.5);
-  -webkit-animation-duration: 1.5s; 
-}			
+  -webkit-animation-duration: 1.5s;
+}
