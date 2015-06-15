@@ -243,6 +243,12 @@ var Sidevalve = function() {
       clearAlerts();
       API.setNameFromPrompt();
     });
+    // activate about button
+    $(".about-game").click(function() {
+      // for whatever reason it feels weird to clear the alerts here
+      // clearAlerts();
+      showAbout();
+    });
   };
 
   // function to display an alert
@@ -255,6 +261,22 @@ var Sidevalve = function() {
   // function to clear the alerts
   clearAlerts = function() {
     $("#alerts").empty();
+  };
+
+  // function to show the about box
+  showAbout = function() {
+    var aboutText = `
+## ${API.game.title}
+
+${API.game.about}
+
+### Sidevalve
+
+This game runs on [Sidevalve](https://github.com/sidevalve/sidevalve)
+, a pretty cool game engine by Andrew Monks and Fenn Macon.
+
+You can make your own game real easy.`;
+    bootbox.alert(renderMarkdown(aboutText));
   };
 
   // function to pick up any objects in a location
