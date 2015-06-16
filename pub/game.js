@@ -7,6 +7,9 @@ Game = {
   // this text shows up in the `about` popup
   "about": "This is a *super* cool demo game about weed.",
 
+  // this theme is used in the game
+  "theme": "8bitstyle",
+
   // this text shows up at the beginning of the game
   "intro": "Sup <span class='current-player-name'></span>! You should try to find some grass and a bong and then go to Fenn's house.",
 
