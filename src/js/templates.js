@@ -36,3 +36,11 @@ this["Handlebars"]["templates"]["src/handlebars/inventory-object.html.hbs"] = Ha
 this["Handlebars"]["templates"]["src/handlebars/inventory-panel.html.hbs"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
     return "<div id=\"inventory-panel\" class=\"col-xs-6\">\n  <div class=\"panel panel-default\">\n    <div class=\"panel-heading\">\n      <h3 class=\"panel-title\">Inventory</h3>\n    </div>\n    <div class=\"panel-body\" id=\"inventory\">\n    </div>\n  </div>\n</div>\n";
 },"useData":true});
+
+this["Handlebars"]["templates"]["src/handlebars/theme.html.hbs"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+    var helper;
+
+  return "<link rel=\"stylesheet\" href=\"themes/"
+    + this.escapeExpression(((helper = (helper = helpers.theme || (depth0 != null ? depth0.theme : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"theme","hash":{},"data":data}) : helper)))
+    + ".css\" />\n";
+},"useData":true});

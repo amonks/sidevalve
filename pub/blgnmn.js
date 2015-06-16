@@ -4,6 +4,9 @@ Game = {
   // this title shows up on the top of the page
   "title": "Belgian Man Suburban Adventure!",
 
+  // this is the css theme to use
+  "theme": "8bitstyle",
+
   // this text shows up in the `about` popup
   "about": "Get to the gig!",
 
@@ -112,7 +115,7 @@ Game = {
       "text": "<span class='current-player-name'></span>, you made it!",
       "need": ["shades", "chain", "weed"],
       "destinations": ["worcester"]
-    },    
+    },
 
 
     "andover": {

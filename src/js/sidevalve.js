@@ -293,6 +293,11 @@ var Sidevalve = function() {
 
   // function to insert data into properly classed span tags
   var renderInsertions = function() {
+    // load the theme css
+    if (API.game.theme) {
+      $("head").append(renderHandlebars("theme.html", API.game));
+    }
+
     // load the new place name
     $(".current-place-name").text(API.game.places[API.game.player.location].name);
 
@@ -361,8 +366,6 @@ var Sidevalve = function() {
     for ( var i in inventory ) {
       var itemID = inventory[i];
       var item = API.game.objects[itemID];
-      // apparently you can do a multiline string in javascript now enclosed in backticks
-      // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/template_strings
       $("#inventory").append( renderHandlebars('inventory-object.html', {
         item: item,
         text: renderMarkdown(item.text)
