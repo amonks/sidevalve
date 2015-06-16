@@ -95,21 +95,21 @@ var Sidevalve = function() {
 
   // function to get a list of the places you can travel to
   API.getPossibleDestinations = function() {
-    var currentPlace = API.game.places[ API.game.player.location ];
-
     // array to hold the output
     var possibleDestinations = [];
 
-    for ( var d in currentPlace.destinations ) {
-      var destinationID = currentPlace.destinations[d];
-      var destinationPlace = API.game.places[destinationID];
+    for ( var d in location().destinations ) {
+      var destination = location(location().destinations[d]);
 
-      // if you don't need any things, add the place to the list
-      if (! destinationPlace.need ) {
-        possibleDestinations.push( destinationID );
-      // otherwise, make sure you have the right things
-      } else if ( arrayContainsAnotherArray(destinationPlace.need, API.game.player.inventory) ) {
-        possibleDestinations.push( destinationID );
+      // if you need things,
+      if ( destination.need ) {
+        // make sure you have the right ones
+        if ( arrayContainsAnotherArray(destination.need, player().inventory) ) {
+          possibleDestinations.push( destination );
+        }
+      } else {
+        // if you don't need things
+        possibleDestinations.push( destination );
       }
     }
 
@@ -118,16 +118,17 @@ var Sidevalve = function() {
 
   // function to enter a place
   API.enter = function(id) {
+    place = location(id);
     // check if we can get in
-    if (API.getPossibleDestinations().indexOf(id) != -1) {
+    if ( place.canIGoThere() ) {
       // set the player location to the new place's id
-      API.game.player.location = id;
+      player().location = place.id;
 
       // now you can get to this place whenever
-      API.game.places[id].need = null;
+      place.need = null;
 
       // get any new objects here
-      getObjectsHere(id);
+      getObjectsHere(place);
 
       API.render();
       API.save();
@@ -139,21 +140,17 @@ var Sidevalve = function() {
 
   // function to draw the game window (images, text, ...)
   API.render = function() {
-    // create a place variable for convenience
-    var placeID = API.game.player.location;
-    var place = API.game.places[placeID];
-
     // load the new place image
-    $("#image").attr("src", place.image);
+    $("#image").attr("src", location().image);
 
     // load the new place text
-    renderText(place.text);
+    renderText(location().text);
 
     // load the new place destinations
     renderDestinations();
 
     // load the player's inventory
-    renderInventory(API.game.player.inventory);
+    renderInventory(player().inventory);
 
     // insert data
     renderInsertions();
@@ -165,26 +162,16 @@ var Sidevalve = function() {
     // here we're creating a modal prompt to get the character's name
     bootbox.prompt({
       title: "What's your name?",
-      value: API.game.player.name,
+      value: player().name,
       callback: function(result) {
         // everything in here happens after the player submits the prompt
-        if (result === null) {
-          // either ignore it if they hit 'cancel'
-        } else {
+        // either ignore it if they hit 'cancel'
+        if (result !== null) {
           // or update the name
-          API.setName(result);
+          player().setName(result);
         }
       }
     });
-  };
-
-  // function to set the player's name to a given string
-  API.setName = function(name) {
-    alert("Name set to: `" + name + "`", "success");
-    API.game.player.name = name;
-    // save and render the result
-    API.save();
-    API.render();
   };
 
   // function to load a saved game state object and returns it
@@ -214,6 +201,60 @@ var Sidevalve = function() {
 
 
   // these functions aren't members of the API object, so they're private.
+
+
+  // function to return a location object
+  // returns the current location given no arguments
+  // returns a particular location given an ID
+  var location = function(id) {
+    // if not given a location, run with the current location id
+    if (id === undefined) {
+      return location(player().location);
+    } else {
+      var out = API.game.places[id];
+      out.id = id;
+
+      out.canIGoThere = function() {
+        if (API.getPossibleDestinations().indexOf(location(id)) != -1) {
+          return true;
+        } else {
+          return false;
+        }
+      };
+
+      return out;
+    }
+  };
+
+
+  // function to return the player object
+  var player = function() {
+    var out = API.game.player;
+
+    out.setName = function(name) {
+      alert("Name set to: `" + name + "`", "success");
+      player().name = name;
+
+      // save and render the result
+      API.save();
+      API.render();
+    };
+
+    return out;
+  };
+
+  // function to return an item object
+  // returns a particular location given an ID
+  var item = function(id) {
+    var out = API.game.objects[id];
+    out.id = id;
+
+    out.blurb = function() {
+      return renderMarkdown(out.text)
+    };
+
+    return out;
+  };
 
   // function to set up the game
   // this is called by `start()`
@@ -264,13 +305,12 @@ var Sidevalve = function() {
   // function to pick up any objects in a location
   // and add them to the player's inventory
   // called by `API.enter()`
-  var getObjectsHere = function(placeID) {
-    var place = API.game.places[placeID];
+  var getObjectsHere = function(place) {
     if (place.get) {
       // get everything in the place
       while (place.get.length > 0) {
         var newObject = place.get.pop();
-        API.game.player.inventory.push(newObject);
+        player().inventory.push(newObject);
         // show notice
         if (API.game.objects[newObject].acquisition) {
           alert(API.game.objects[newObject].acquisition, "success");
@@ -281,8 +321,8 @@ var Sidevalve = function() {
       // lose everything you're supposed to
       while (place.lose.length > 0) {
         var lostObject = place.lose.pop();
-        var lostObjectIndex = API.game.player.inventory.indexOf(lostObject);
-        API.game.player.inventory.splice(lostObjectIndex, 1);
+        var lostObjectIndex = player().inventory.indexOf(lostObject);
+        player().inventory.splice(lostObjectIndex, 1);
         // show notice
         if (API.game.objects[lostObject].acquisition) {
           alert(API.game.objects[lostObject].loss, "success");
@@ -299,10 +339,10 @@ var Sidevalve = function() {
     }
 
     // load the new place name
-    $(".current-place-name").text(API.game.places[API.game.player.location].name);
+    $(".current-place-name").text(location().name);
 
     // load the player's name
-    $(".current-player-name").text(API.game.player.name);
+    $(".current-player-name").text(player().name);
 
     // load the game's title
     $(".game-title").text(API.game.title);
@@ -334,9 +374,9 @@ var Sidevalve = function() {
     // add new destinations to the list
     var destinations = API.getPossibleDestinations();
     for (var d in destinations) {
-      var destinationID = destinations[d];
-      var destinationPlace = API.game.places[destinationID];
-      addDestination(destinationID, destinationPlace);
+      console.log(destinations[d])
+      var destination = destinations[d];
+      addDestination(destination);
     }
 
     // activate links
@@ -348,10 +388,9 @@ var Sidevalve = function() {
   };
 
   // function to add a destination to the list
-  var addDestination = function(destinationID, destination) {
+  var addDestination = function(location) {
     $("#destinations").append(renderHandlebars('destination.html', {
-      destination: destination,
-      destinationID: destinationID
+      destination: location,
     }));
   };
 
@@ -364,11 +403,10 @@ var Sidevalve = function() {
 
     // add new inventory to the list
     for ( var i in inventory ) {
-      var itemID = inventory[i];
-      var item = API.game.objects[itemID];
+      var theItem = item(inventory[i]);
       $("#inventory").append( renderHandlebars('inventory-object.html', {
-        item: item,
-        text: renderMarkdown(item.text)
+        item: theItem,
+        text: theItem.blurb()
       }));
     }
   };
