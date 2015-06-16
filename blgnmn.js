@@ -4,6 +4,9 @@ Game = {
   // this title shows up on the top of the page
   "title": "Belgian Man Suburban Adventure!",
 
+  // this is the css theme to use
+  "theme": "8bitstyle",
+
   // this text shows up in the `about` popup
   "about": "Get to the gig!",
 
@@ -45,7 +48,7 @@ Game = {
       "image": "http://i.imgur.com/6xdP75w.jpg",
       "acquisition": "Fenn gives you Tom Foley's lighter",
       // this `loss` text will show up when you lose the object
-      "loss": "Hey! Give back my lighter!",
+      "loss": "You give Tom his stupid lighter back.",
       "text": "This lighter is really cool I guess."
     }
   },
@@ -61,7 +64,7 @@ Game = {
       // you can use markdown formatting in text, *da conk* will be italicized.
       "text": "this is *da conk*",
       // You can have many destinations
-      "destinations": ["worcester", "andover", "monks"]
+      "destinations": ["worcester", "andover", "monks", "stow"]
     },
     "monks": {
       "name": "Monks' House",
@@ -78,7 +81,7 @@ Game = {
       // You can use external images
       "image": "http://i.imgur.com/IKmHxjP.jpg",
       "text": "this b the woo",
-      "destinations": ["concord", "andover", "clark"]
+      "destinations": ["concord", "andover", "clark", "stow"]
     },
     "clark": {
       "name": "Clark University",
@@ -99,6 +102,21 @@ Game = {
       "destinations": ["clark"]
     },
 
+    "stow": {
+      "name": "Stow",
+      "image": "images/travel.gif",
+      "text": "What a beautiful town!",
+      "need": ["shades", "chain", "weed"],
+      "destinations": ["arjuntina", "worcester"]
+    },
+    "arjuntina": {
+      "name": "Arjuntina",
+      "image": "images/arjuntina.jpg",
+      "text": "<span class='current-player-name'></span>, you made it!",
+      "need": ["shades", "chain", "weed"],
+      "destinations": ["worcester"]
+    },
+
 
     "andover": {
       "name": "Andover",
@@ -109,12 +127,12 @@ Game = {
     },
     "fenn": {
       "name": "Fenn's House",
-      // You can't go to fenn's house without a bong and some weed!
+      // You can't go to fenn's house without your shades and some weed!
       // It won't even show up as an option. Maybe allude to that in text?
-      "need": ["bong", "weed"],
+      "need": ["shades", "weed"],
       "get": ["lighter"],
       "image": "http://i.imgur.com/3KlOVbd.jpg",
-      "text": "eyyyyy <span class='current-player-name'></span> u win or something",
+      "text": "eyyyyy <span class='current-player-name'></span> get high with yourself or something",
       "destinations": ["andover"]
     }
   }

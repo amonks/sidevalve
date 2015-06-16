@@ -1,6 +1,6 @@
 /* sidevalve.js
 
-Copyright (c) 2015, Andrew Monks <a@monks.co> & Fenn Macon
+Copyright (c) 2015, Andrew Monks <monks.co> & Fenn Macon <fenn.in>
 
 Permission to use, copy, modify, and/or distribute this software for
 any purpose with or without fee is hereby granted, provided that the
@@ -54,6 +54,14 @@ this["Handlebars"]["templates"]["src/handlebars/inventory-object.html.hbs"] = Ha
 
 this["Handlebars"]["templates"]["src/handlebars/inventory-panel.html.hbs"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
     return "<div id=\"inventory-panel\" class=\"col-xs-6\">\n  <div class=\"panel panel-default\">\n    <div class=\"panel-heading\">\n      <h3 class=\"panel-title\">Inventory</h3>\n    </div>\n    <div class=\"panel-body\" id=\"inventory\">\n    </div>\n  </div>\n</div>\n";
+},"useData":true});
+
+this["Handlebars"]["templates"]["src/handlebars/theme.html.hbs"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+    var helper;
+
+  return "<link rel=\"stylesheet\" href=\"themes/"
+    + this.escapeExpression(((helper = (helper = helpers.theme || (depth0 != null ? depth0.theme : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"theme","hash":{},"data":data}) : helper)))
+    + ".css\" />\n";
 },"useData":true});
 // Here we're using Doug Crockford's constructor pattern
 // http://javascript.crockford.com/private.html
@@ -350,6 +358,11 @@ var Sidevalve = function() {
 
   // function to insert data into properly classed span tags
   var renderInsertions = function() {
+    // load the theme css
+    if (API.game.theme) {
+      $("head").append(renderHandlebars("theme.html", API.game));
+    }
+
     // load the new place name
     $(".current-place-name").text(API.game.places[API.game.player.location].name);
 
@@ -418,8 +431,6 @@ var Sidevalve = function() {
     for ( var i in inventory ) {
       var itemID = inventory[i];
       var item = API.game.objects[itemID];
-      // apparently you can do a multiline string in javascript now enclosed in backticks
-      // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/template_strings
       $("#inventory").append( renderHandlebars('inventory-object.html', {
         item: item,
         text: renderMarkdown(item.text)
