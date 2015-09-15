@@ -2,54 +2,46 @@
 
 Game = {
   // this title shows up on the top of the page
-  "title": "Demo Sidevalve Adventure",
+  "title": "Working In Stencyl",
 
   // this text shows up in the `about` popup
-  "about": "This is a *super* cool demo game about weed.",
+  "about": "This is a *super* cool game about trying to use Stencyl.",
 
   // this theme is used in the game
   "theme": "8bitstyle",
 
   // this text shows up at the beginning of the game
-  "intro": "Sup <span class='current-player-name'></span>! You should try to find some grass and a bong and then go to Fenn's house.",
+  "intro": "Sup <span class='current-player-name'></span>! You're in Experimental Games class. You probably ought to download Stencyl. And Java.",
 
   "player": {
     // this is the default name, it can be changed
     "name": "dude",
     // this is the starting location
-    "location": "worcester",
+    "location": "takin notes",
     // this is the player's starting inventory
     "inventory": []
   },
 
   // this is a list of inventory-able objects in the game.
   "objects": {
-    "hat": {
-      "name": "cool hat",
-      "image": "http://i.imgur.com/L75ItJ4.jpg",
+    "stencyl": {
+      "name": "Stencyl Game Maker",
+      "image": "img/stencyl-logo.png",
       // this "acquisition" text will show up when you find the object
-      "acquisition": "You remember that you're wearing your *cool hat*.",
-      "text": "wow this must be the coolest hat ever."
+      "acquisition": "You successfully downoladed Stencyl.",
+      "text": "wow this java shit sure isn't fun."
     },
-    "bong": {
-      "name": "sweet bong",
-      "image": "http://i.imgur.com/9duj9DV.jpg",
-      "acquisition": "You finally get your bong back from your landlord",
-      "text": "This looks like a pretty sweet bong."
-    },
-    "weed": {
-      "name": "fresh nugs",
-      "image": "http://i.imgur.com/QXXXSlH.jpg",
-      "acquisition": "You score some grass",
-      "text": "these are some real steezy nugs."
-    },
-    "lighter": {
-      "name": "Tom Foley's lighter",
-      "image": "http://i.imgur.com/6xdP75w.jpg",
-      "acquisition": "Fenn gives you Tom Foley's lighter",
-      // this `loss` text will show up when you lose the object
-      "loss": "Hey! Give back my lighter!",
-      "text": "This lighter is really cool I guess."
+    "java": {
+      "name": "The Java Runtime",
+      "image": "img/java-logo.png",
+      "acquisition": "After an hour or so, you successfully download the JRE",
+      "text": "Ouch. 90s, much?"
+    }
+    "backgrounds": {
+      "name": "Some backgrounds you made in Stencyl.",
+      "image": "img/backgrounds.png",
+      "acquisition": "You guess you'll make some of this Stencyl bizness",
+      "text": "Pretty high-effort stuff here"
     }
   },
 
@@ -57,68 +49,57 @@ Game = {
   // Change them! Add some! Go crazy!
   "places": {
     // This keyword `concord` doesn't show up in the game.
-    "concord": {
+    "takin notes": {
       // this name `Concord` does.
-      "name": "Concord",
-      "image": "http://i.imgur.com/dZzFBwc.jpg",
+      "name": "Taking notes in class",
+      "image": "img/notes.png",
       // you can use markdown formatting in text, *da conk* will be italicized.
-      "text": "this is *da conk*",
+      "text": "You're in class, aren't you?",
       // You can have many destinations
-      "destinations": ["worcester", "andover", "monks"]
+      "destinations": ["slack-chrome",  "slack-atom", "stencyl-website", "java-website", "in-stencyl-1"]
     },
-    "monks": {
-      "name": "Monks' House",
-      "image": "http://i.imgur.com/ryi4rxg.jpg",
-      "text": "ey <span class='current-player-name'></span> wanna puff piff?",
+    "slack-chrome": {
+      "name": "Slackin' on the internet",
+      "image": "img/slackin-chrome.png",
+      "text": "so this is chrome.",
       // or just one..
-      "destinations": ["concord"],
-      // when the player arrives here, 'weed' will be added to their inventory
-      "get": ["weed"]
+      "destinations": ["stencyl-website", "notes", "slack-atom", "java-website", "in-stencyl-1"]
     },
-
-    "worcester": {
-      "name": "Worcester",
+    "slack-atom": {
+      "name": "Slackin' in ur text editor",
       // You can use external images
-      "image": "http://i.imgur.com/IKmHxjP.jpg",
-      "text": "this b the woo",
-      "destinations": ["concord", "andover", "clark"]
+      "image": "img/slackin-atom.png",
+      "text": "You're typing or something. It's pretty fun. You should be making a game.",
+      "destinations": ["slack-chrome", "notes",  "stencyl-website", "java-website", "in-stencyl-1"]
     },
-    "clark": {
-      "name": "Clark University",
+    "stencyl-website": {
+      "name": "Stencyl website",
       // Or you can put images right in the repository
-      "image": "images/clark.jpg",
-      "text": "time 2 learn bro",
-      "get": ["bong"],
-      "destinations": ["worcester", "tom"]
+      "image": "img/stencyl-website.png",
+      "text": "time 2 download stencyl.",
+      "get": ["stencyl"],
+      "destinations": ["slack-atom", "notes",  "slack-chrome", "java-website", "in-stencyl-1"]
     },
-    "tom": {
-      "name": "Tom Foley's dorm",
-      "image": "http://i.imgur.com/c88DS9v.png",
-      "text": "sup <span class='current-player-name'></span>",
-      // You need the lighter object to get here
-      "need": ["lighter"],
-      // but you lose it when you arrive
-      "lose": ["lighter"],
-      "destinations": ["clark"]
+    "java-website": {
+      "name": "Java website",
+      "image": "img/java-website.png",
+      "text": "Time 4 sum java !!",
+      "destinations": ["slack-atom", "notes",  "slack-chrome", "java-website", "in-stencyl-1"]
     },
 
-
-    "andover": {
-      "name": "Andover",
-      "image": "http://i.imgur.com/CgctDuE.jpg",
-      "text": "this is da AND",
-      "get": ["hat"],
-      "destinations": ["worcester", "fenn"]
+    "in-stencyl-1": {
+      "name": "Stencyl",
+      "image": "img/in-stencyl.png",
+      "text": "so *this* is stencyl? Isn't it... kinda bad?",
+      "need": ["stencyl", "java"],
+      "get": ["backgrounds"]
+      "destinations": ["stencyl-crash", "notes",  "slack-chrome", "slack-atom"]
     },
-    "fenn": {
-      "name": "Fenn's House",
-      // You can't go to fenn's house without a bong and some weed!
-      // It won't even show up as an option. Maybe allude to that in text?
-      "need": ["bong", "weed"],
-      "get": ["lighter"],
-      "image": "http://i.imgur.com/3KlOVbd.jpg",
-      "text": "eyyyyy <span class='current-player-name'></span> u win or something",
-      "destinations": ["andover"]
+    "stencyl-crash": {
+      "name": "Stencyl",
+      "need": ["backgrounds"],
+      "image": "img/stencyl-crash.png",
+      "text": "Stencyl crashed.",
     }
   }
 };
