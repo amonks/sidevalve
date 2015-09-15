@@ -36,7 +36,7 @@ Game = {
       "image": "img/java-logo.png",
       "acquisition": "After an hour or so, you successfully download the JRE",
       "text": "Ouch. 90s, much?"
-    }
+    },
     "backgrounds": {
       "name": "Some backgrounds you made in Stencyl.",
       "image": "img/backgrounds.png",
