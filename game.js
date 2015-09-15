@@ -92,14 +92,14 @@ Game = {
       "image": "img/in-stencyl.png",
       "text": "so *this* is stencyl? Isn't it... kinda bad?",
       "need": ["stencyl", "java"],
-      "get": ["backgrounds"]
+      "get": ["backgrounds"],
       "destinations": ["stencyl-crash", "notes",  "slack-chrome", "slack-atom"]
     },
     "stencyl-crash": {
       "name": "Stencyl",
       "need": ["backgrounds"],
       "image": "img/stencyl-crash.png",
-      "text": "Stencyl crashed.",
+      "text": "Stencyl crashed."
     }
   }
 };
