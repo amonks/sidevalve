@@ -85,7 +85,7 @@ Game = {
       "image": "img/java-website.png",
       "text": "Time 4 sum java !!",
       "get": ["java"],
-      "destinations": ["slack-atom", "notes",  "slack-chrome", "java-website", "in-stencyl-1"]
+      "destinations": ["slack-atom", "notes",  "slack-chrome", "stencyl-website", "in-stencyl-1"]
     },
 
     "in-stencyl-1": {
