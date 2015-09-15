@@ -17,7 +17,7 @@ Game = {
     // this is the default name, it can be changed
     "name": "dude",
     // this is the starting location
-    "location": "takin notes",
+    "location": "notes",
     // this is the player's starting inventory
     "inventory": []
   },
@@ -49,7 +49,7 @@ Game = {
   // Change them! Add some! Go crazy!
   "places": {
     // This keyword `concord` doesn't show up in the game.
-    "takin notes": {
+    "notes": {
       // this name `Concord` does.
       "name": "Taking notes in class",
       "image": "img/notes.png",
